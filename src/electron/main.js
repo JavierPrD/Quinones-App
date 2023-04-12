@@ -4,6 +4,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const mysql = require('mysql');
+const isDev = process.env.NODE_ENV !== "production";
 
 function createWindow () {
   const mainWindow = new BrowserWindow({
@@ -45,8 +46,32 @@ function createWindow () {
   */
 }
 
+function createMain(){
+  const mainWin = new BrowserWindow({
+   
+    titleBarOverlay: {
+      color: "#2f3241",
+      symbolColor: "#74b1be",
+      height: 60,
+    },
+    title: "Quinones",
+    width: isDev ? 2000 : 500,
+    height: 1000,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+  if (isDev) {
+    mainWin.webContents.openDevTools();
+  }
+  mainWin.loadFile(path.join(__dirname, "../html/Home_view.html"));
+}
+
 app.whenReady().then(() => {
   createWindow()
+  createMain()
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
