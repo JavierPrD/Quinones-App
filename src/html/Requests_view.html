@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title>Requests</title>
+
+    <link href="../components/common/header/header.css" rel="stylesheet">
+    <link href="../components/common/sidebar/sidebar.css" rel="stylesheet">
+    <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
+    <link href="../Style/request.css" rel="stylesheet">
+
+</head>
+
+
+<!---------------------------------------------------------------------------------------------->
+
+<body style="display: block; margin: auto;">
+    <div id="root">
+        <div class="request-container">
+            <div class="header">
+                <div class="header-menu">
+                    <i class="bi bi-columns-gap"></i>
+                </div>
+                <div class="header-leftFold">
+                    <label class="header-label">Quinones</label>
+                </div>
+                <div class="header-rightFold">
+                    <div class="header-search">
+                        <i class="bi bi-search"></i>
+                        <input placeholder="Search">
+                    </div>
+                    <div class="header-profile">
+                        <div class="header-options">
+                            <i class="bi bi-three-dots" onclick="toggleMenu()">
+                                <div class="sub-menu-wrap" id="subMenu">
+                                    <div class="sub-menu">
+
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Edit Profile</p>
+
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Settings & Privacy</p>
+
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Help & Support</p>
+
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Logout</p>
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </i>
+                        </div>
+                        <a href="UserProfile_view.html">
+                            <div class="header-icon">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="request-body">
+                <div class="request-sidebar">
+                    <div class="sidebar">
+                        <div class="sidebar-top">
+                            <div class="sidebar-option">
+                                <a href="Home_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-house"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Home</label>
+                            </div>
+
+
+                            <div class="sidebar-option active">
+                                <a href="Requests_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Requests</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Chat_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-chat-dots"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Chat</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Task_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-file-text"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Task</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Gantt-Chart_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-bar-chart-steps"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Gantt-Chart</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Calender_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-calendar"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Calender</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="call-view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-telephone"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Calls</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Files_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-folder"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Files</label>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="sidebar-bottom">
+                            <div class="sidebar-option">
+                                <a href="Help_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-question-circle"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Help</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="request-rightFold"><!-----Beginning of Right Fold (Note uses components/calls/home.css)-->
+                    <div class="rightFold">
+                        <div class="fold-container">
+                            <h2>Content</h2>
+                            <form method="post" action="">
+                                <input type="hidden">
+
+                                <div id="dataCollectionContainer">
+                                    <div class="submitStepTop">
+                                        <span class="reqfield" tabindex="0">
+                                            <i class="bi bi-asterisk"></i>
+                                            Indicates a required field
+                                        </span>
+                                    </div>
+                                    <div id="step1" class=" ">
+                                        <h3 id="steptitle1" class="steptitle">
+                                            <span id="stepnumber1">1.</span>
+                                            &nbsp; Recipients
+                                        </h3>
+                                        <div id="stepcontent1" class="stepcontent">
+                                            <ol role="presentation">
+                                                <li>
+                                                    <div class="field">
+                                                        <!--Render button (labelTo) only if we do not have single recipient from request -->
+                                                        <input id="to_b" name="to_b" type="button" value="To"
+                                                            onclick="showFieldArea('to')">
+                                                        <div id="to" style="display: none;">
+                                                            <div class="selectItems clearfix" style="display: block;"
+                                                                id="to_ss_to_s">
+                                                                <input type="hidden" name="to_left_values"
+                                                                    id="to_left_values" value="001,002,003">
+                                                                <input type="hidden" name="to_right_values"
+                                                                    id="to_right_values" value="">
+                                                                <div class="u_floatThis-left">
+                                                                    <label for="to_ss">Select Recipients: To
+                                                                        line</label>
+                                                                    <select name="to_ss" size="8" id="to_ss"
+                                                                        multiple="multiple">
+                                                                        <option value="001"
+                                                                            sortstring="Banavara, Narasimhaswamy">
+                                                                            Narasimhaswamy Banavara (Instructor)
+                                                                        </option>
+                                                                        <option value="002" sortstring="Delphin, Yves">
+                                                                            Yves
+                                                                            Delphin
+                                                                            (Instructor)</option>
+                                                                        <option value="003" sortstring="Gray, Shickare">
+                                                                            Shickare Gray
+                                                                        </option>
+                                                                    </select>
+                                                                    <input type="button" id="invertButton"
+                                                                        value="Invert Selection" class="button-4">
+                                                                    <input type="button" id="allButton"
+                                                                        value="Select All" class="button-4">
+                                                                </div>
+                                                                <div class="selectArrows u_floatThis-left">
+                                                                    <button type="button" id="moveSelButton"
+                                                                        title="Move to list of selected items"><img
+                                                                            src="https://learn.content.blackboardcdn.com/3900.60.0-rel.41+9d324a9/images-ltr/ci/ng/cm_arrow_right.gif"
+                                                                            alt="Move to list of selected items"></button>
+                                                                    <button type="button" id="moveAvailButton"
+                                                                        title="Move to list of available items"><img
+                                                                            src="https://learn.content.blackboardcdn.com/3900.60.0-rel.41+9d324a9/images-ltr/ci/ng/cm_arrow_left.gif"
+                                                                            alt="Move to list of available items"></button>
+                                                                </div>
+                                                                <div class="u_floatThis-left">
+                                                                    <label for="to_s">Recipients</label>
+                                                                    <select name="to_s" size="8" id="to_s"
+                                                                        multiple="multiple">
+                                                                    </select>
+                                                                    <input type="button" id="invertButton"
+                                                                        value="Invert Selection" class="button-4">
+                                                                    <input type="button" id="allButton"
+                                                                        value="Select All" class="button-4">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <span class="fieldErrorText"></span>
+                                                    </div>
+                                                </li>
+
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <div id="step2" class=" ">
+                                        <h3 id="steptitle2" class="steptitle">
+                                            <span id="stepnumber2">2.</span> &nbsp;
+                                            Compose Message
+                                        </h3>
+                                        <div id="stepcontent2" class="  stepcontent  ">
+                                            <ol role="presentation">
+                                                <li class="required">
+                                                    <div class="label">
+                                                        <label for="subject_t">
+                                                            <i class="bi bi-asterisk"></i>
+                                                            Subject
+                                                        </label>
+                                                    </div>
+
+
+                                                    <div class="field">
+
+                                                        <input type="text" name="subject_t" id="subject_t" value=""
+                                                            size="50" maxlength="50">
+
+                                                        <!--//todo: add validation for subject-->
+
+                                                        <span class="fieldErrorText"></span>
+
+                                                    </div>
+                                                </li>
+
+                                                <li>
+                                                    <div class="label label-stack">
+                                                        <label for="body_text">
+                                                            Body
+                                                        </label>
+                                                    </div>
+
+
+
+                                                </li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <div class="submitStepBottom" style="margin-bottom: auto;">
+                                        <h3 id="steptitle4" class="steptitle submittitle">
+                                            <span id="stepnumber4">3.</span>
+                                            &nbsp;Submit
+                                        </h3>
+                                        <p class="taskbuttonhelp">Click <b>Submit</b> to proceed. </p>
+
+                                        <div class="taskbuttondiv_wrapper">
+                                            <p class="taskbuttondiv" id="bottom_submitButtonRow">
+                                                <input id="bottom_Cancel" class="button-2" type="button"
+                                                    name="bottom_Cancel" role="button" value="Cancel"
+                                                    onclick="document.location='folderList.jsp?nav=messages&amp;course_id=_95001_1';">
+                                                <input id="bottom_Submit" class="submit button-1" name="bottom_Submit"
+                                                    type="submit" role="button" value="Submit" onclick="">
+
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div><!-----End of Right Fold -->
+            </div><!-----End of Body---->
+        </div><!-----End of Container---->
+    </div>
+    <script>
+        const tabBtn = document.querySelectorAll(".tab")
+        const tab = document.querySelectorAll(".tabShow")
+
+        function tabs(panelIndex) {
+            tab.forEach(function (node) {
+                node.style.display = "none";
+            });
+            tab[panelIndex].style.display = "block";
+        }
+        tabs(0);
+    </script>
+
+    <script>
+        let subMenu = document.getElementById("subMenu");
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+
+    </script>
+    <script src="../renderer.js"></script>
+</body>
+
+</html>

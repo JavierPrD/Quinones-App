@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title>Task</title>
+
+    <link href="../components/common/header/header.css" rel="stylesheet">
+    <link href="../components/common/sidebar/sidebar.css" rel="stylesheet">
+    <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
+    <link href="../Style/task.css" rel="stylesheet">
+
+    <!--include bootstrap css-->
+   
+
+   
+
+    
+</head>
+
+
+<!---------------------------------------------------------------------------------------------->
+
+<body style="display: block; margin: auto;">
+    <div id="root">
+        <div class="task-container">
+            <div class="header">
+                <div class="header-menu">
+                    <i class="bi bi-columns-gap"></i>
+                </div>
+                <div class="header-leftFold">
+                    <label class="header-label">Quinones</label>
+                </div>
+                <div class="header-rightFold">
+                    <div class="header-search">
+                        <i class="bi bi-search"></i>
+                        <input placeholder="Search">
+                    </div>
+                    <div class="header-profile">
+                        <div class="header-options">
+                            <i class="bi bi-three-dots" onclick="toggleMenu()">
+                                <div class="sub-menu-wrap" id="subMenu">
+                                    <div class="sub-menu">
+                                        <!--
+                                        <div class="options-info">
+                                            <h2>ADDD</h2>
+                                        </div>
+                                        -->
+                                        <!--<hr>-->
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Edit Profile</p>
+                                            
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Settings & Privacy</p>
+                                            
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Help & Support</p>
+                                            
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Logout</p>
+                                            
+                                        </a>
+                                    </div>
+                                </div>
+                            </i>
+                        </div>
+                        <a href="UserProfile_view.html">
+                            <div class="header-icon">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="task-body">
+                <!---------------------------------------------------------------------------------------------->
+                <div class="task-sidebar">
+                    <div class="sidebar">
+                        <div class="sidebar-top">
+                           
+
+                            <div class="sidebar-option">
+                                <a href="Home_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-house"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Home</label>
+                            </div>
+                            
+                            <!--
+                            <div class="sidebar-option">
+                                <a href="Groups_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Groups</label>
+
+                            </div>
+                            -->
+
+                            <div class="sidebar-option">
+                                <a href="Requests_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Requests</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Chat_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-chat-dots"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Chat</label>
+                            </div>
+
+                            <div class="sidebar-option active">
+                                <a href="Task_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-file-text"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Task</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Gantt-Chart_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-bar-chart-steps"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Gantt-Chart</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Calender_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-calendar"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Calender</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="call-view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-telephone"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Calls</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Files_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-folder"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Files</label>
+                            </div>
+
+                            <div>
+                               
+                            </div>
+                            
+                        </div>
+                        <!---------------------------------------------------------------------------------------------->
+                        <div class="sidebar-bottom">
+                            
+                            <div class="sidebar-option">
+                                <a href="Help_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-question-circle"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Help</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-rightFold"><!-----Beginning of Right Fold (Note uses components/calls/home.css)-->
+                    <div class="rightFold">
+
+                        <!--Task Management Container-->
+                        <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+                            <!--
+                            Button to add task
+                            <div class="row" style="margin-bottom: 50px;">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#addTaskModal">
+                                        Add Task
+                                    </button>
+                                </div>
+                            </div>
+                            -->
+
+
+                        </div>
+                        <table class="task-table">
+                            <!--Menu Bar Should be Added-->
+                            <div class="menu-container">
+                                
+                                <div class="menu-option option-active"><a onclick="tab(0)">All</a></div>
+                                <div class="menu-option"><a onclick="tab(1)">Processing</a></div>
+                                <div class="menu-option"><a onclick="tab(2)">Pending</a></div>
+                                <div class="menu-option"><a onclick="tab(3)">Completed</a></div>
+
+                                
+                            </div>
+                            <tr>
+                                <th>Task</th>
+                                <th>Phase</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                                <th>Assigned To</th>
+                                <th>Options</th>
+                            </tr>
+
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Name</th>
+                                    <th>Modified</th>
+                                    <th>Modified By</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Document</td>
+                                    <td>Project Plan</td>
+                                    <td>2023-04-10</td>
+                                    <td>John Doe</td>
+                                    <td><button>Edit</button><button>Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Image</td>
+                                    <td>Logo.png</td>
+                                    <td>2023-04-11</td>
+                                    <td>Jane Smith</td>
+                                    <td><button>Edit</button><button>Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Spreadsheet</td>
+                                    <td>Budget.xlsx</td>
+                                    <td>2023-04-12</td>
+                                    <td>Mark Johnson</td>
+                                    <td><button>Edit</button><button>Delete</button></td>
+                                </tr>
+                            </tbody>
+
+
+
+                        </table>
+
+
+                        
+
+                        <!--Modal to add Project and task-->
+                        <div class="modal fade" id="addTaskModal" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Add Task</h5>
+                                        <button class="close" type="button" data-dismiss="modal">x</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" onsubmit="return taskObj.addTask(this);"
+                                            id="form-task-hour-calculator">
+                                            <!--select project from already created-->
+                                            <div class="form-group">
+                                                <label>Project</label>
+                                                <select name="project" id="add-task-project" class="form-control"
+                                                    required></select>
+                                            </div>
+                                            <!--Create New Project-->
+                                            <div class="form-group">
+                                                <label>New Project</label>
+                                                <input type="text" name="new_project" id="add-project"
+                                                    class="form-control" placeholder="Project Name">
+                                                <button type="button" onclick="taskObj.addProject();"
+                                                    class="btn btn-primary" style="margin-top: 10px;">Add
+                                                    Project</button>
+                                            </div>
+                                            <!--Enter Task-->
+                                            <div class="form-group">
+                                                <label>Task</label>
+                                                <input type="text" name="task" class="form-control"
+                                                    placeholder="What are you going to do?" required>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--Form Submit Button-->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="submit" form="form-task-hour-calculator"
+                                            class="btn btn-primary">Add Task</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script>
+            const tabBtn = document.querySelectorAll(".tab")
+            const tab = document.querySelectorAll(".tabShow")
+        
+            function tabs(panelIndex) {
+                tab.forEach(function (node) {
+                    node.style.display = "none";
+                });
+                tab[panelIndex].style.display = "block";
+            }
+            tabs(0);
+        </script>
+        
+        <script>
+            let subMenu = document.getElementById("subMenu");
+            function toggleMenu() {
+                subMenu.classList.toggle("open-menu");
+            }
+        
+        </script>
+        <script src="../renderer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+.task-body {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  height: 94%;
+}
+.task-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.task-sidebar {
+  display: flex;
+  flex: 1;
+}
+
+.task-leftFold {
+  display: flex;
+  flex: 3;
+}
+
+.task-rightFold {
+  display: flex;
+  column-count: 3;
+  flex: 11;
+}
+.rightFold {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.fold-container {
+  height: 100%;
+  width: 100%;
+  column-count: 2;
+  column-gap: 20px;
+  /*column-rule: 1px solid #ccc;*/
+}
+
+.menu-container {
+  padding: 0.75em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 600px;
+  flex-direction: row;
+}
+
+nav {
+}
+
+.menu-option {
+  padding: 10px; /* add some padding to each option */
+  background-color: #ccc; /* add some background color */
+}
+
+/*Controls the options appearance*/
+.menu-option a {
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.option-active {
+  color: #6264a7;
+  border-bottom: 4px solid #6264a7;
+}
+
+.task-table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.task-table td,
+.task-table th {
+  padding: 0.75em;
+  vertical-align: top;
+  border-top: 1px solid black;
+}

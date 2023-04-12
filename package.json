@@ -1,0 +1,22 @@
+{
+  "name": "quinones-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/electron/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "author": "Javier Prieto",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^24.1.1"
+  },
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

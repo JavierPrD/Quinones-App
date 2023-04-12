@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="./favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Web site created using create-react-app">
+    <link rel="apple-touch-icon" href="./logo192.png">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title>Calls</title>
+    <!--<script defer="defer" src="./static/js/main.9c900f1a.js"></script>-->
+    <!--
+        <script defer="defer" src="./components/calls/index.js"></script>
+        <script defer="defer" src="./components/calls/left-fold/dialer-item.js"></script>
+        <script defer="defer" src="./components/calls/left-fold/index.js"></script>
+        <script defer="defer" src="./components/calls/left-fold/menu-item.js"></script>
+        <script defer="defer" src="./components/calls/right-fold/contact-card.js"></script>
+        <script defer="defer" src="./components/calls/right-fold/index.js"></script>
+        <script defer="defer" src="./components/common/header/index.js"></script>
+        <script defer="defer" src="./components/common/sidebar/index.js"></script>
+        <script defer="defer" src="./components/common/sidebar/sidebar-option.js"></script>
+        <script defer="defer" src="./data/calls.js"></script>
+        <script defer="defer" src="./data/sidebar.js"></script>
+        -->
+    <!--css files affect the app not the website-->
+    <link href="../components/calls/calls.css" rel="stylesheet"><!--Contains Usesr Interface of Calls Page/View-->
+    <link href="../components/common/header/header.css" rel="stylesheet"><!--Contains Style files for Header-->
+    <link href="../components/common/sidebar/sidebar.css" rel="stylesheet"><!--Contains Style files for Sidebar-->
+    <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
+    <!--Contains Style files for Sidebar Buttons-->
+    <link href="../components/calls/left-fold/dialer-item.css" rel="stylesheet">
+    <link href="../components/calls/left-fold/left-fold.css" rel="stylesheet">
+    <link href="../components/calls/left-fold/menu-item.css" rel="stylesheet">
+    <link href="../components/calls/right-fold/contact-card.css" rel="stylesheet">
+    <link href="../components/calls/right-fold/right-fold.css" rel="stylesheet">
+</head>
+
+<body style="display: block; margin: auto;">
+    <div id="root">
+        <div class="calls-container">
+            <div class="header">
+                <div class="header-menu">
+                    <i class="bi bi-columns-gap"></i>
+                </div>
+                <div class="header-leftFold">
+                    <label class="header-label">Quinones</label>
+                </div>
+                <div class="header-rightFold">
+                    <div class="header-search">
+                        <i class="bi bi-search"></i>
+                        <input placeholder="Search">
+                    </div>
+                    <div class="header-profile">
+                        <div class="header-options">
+                            <i class="bi bi-three-dots" onclick="toggleMenu()">
+                                <div class="sub-menu-wrap" id="subMenu">
+                                    <div class="sub-menu">
+                                        <!--
+                                        <div class="options-info">
+                                            <h2>ADDD</h2>
+                                        </div>
+                                        -->
+                                        <!--<hr>-->
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Edit Profile</p>
+
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Settings & Privacy</p>
+
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Help & Support</p>
+
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Logout</p>
+
+                                        </a>
+                                    </div>
+                                </div>
+                            </i>
+                        </div>
+                        <a href="UserProfile_view.html">
+                            <div class="header-icon">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calls-body">
+                <div class="calls-sidebar">
+                    <div class="sidebar">
+                        <div class="sidebar-top">
+                            <div>
+
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Home_view.html" id="home-link">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-house"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Home</label>
+                            </div>
+
+                            <!--    
+                        <div class="sidebar-option">
+                            <a href="Groups_view.html" id="groups-link">
+                                <div class="sidebar-icon">
+                                    <i class="bi bi-people-fill"></i>
+                                </div>
+                            </a>
+                            <label class="sidebar-label">Groups</label>
+                            
+                        </div>
+                        -->
+
+                            <div class="sidebar-option">
+                                <a href="Requests_view.html" id="requests-link">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Requests</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Chat_view.html" id="chat-link">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-chat-dots"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Chat</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Task_view.html" id="task-link">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-file-text"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Task</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Gantt-Chart_view.html" id="gantt-link">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-bar-chart-steps"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Gantt-Chart</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Calender_view.html" id="calender-link">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-calendar"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Calender</label>
+                            </div>
+
+                            <div class="sidebar-option active">
+                                <a href="call-view.html" id="calls-link">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-telephone"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Calls</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Files_view.html" id="files-link">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-folder"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Files</label>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-bottom">
+                            <div class="sidebar-option">
+                                <a href="Help_view.html" id="help-link">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-question-circle"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Help</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="calls-leftFold">
+                    <div class="leftFold">
+                        <div class="leftFold-menu">
+                            <label class="menu-label">Calls</label>
+                            <div class="menu-items">
+                                <div class="menu-item">
+                                    <div class="item-icon">
+                                        <i class="bi bi-phone"></i>
+                                    </div>
+                                    <label class="item-label">Speed Dial</label>
+                                </div>
+                                <div class="menu-item">
+                                    <div class="item-icon">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                    <label class="item-label">Contact</label>
+                                </div>
+                                <div class="menu-item">
+                                    <div class="item-icon">
+                                        <i class="bi bi-clock-history"></i>
+                                    </div>
+                                    <label class="item-label">History</label>
+                                </div>
+                                <div class="menu-item">
+                                    <div class="item-icon">
+                                        <i class="bi bi-voicemail"></i>
+                                    </div>
+                                    <label class="item-label">Voicemail</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="leftFold-dialer">
+                            <label class="dialer-label">Make a Call</label>
+                            <div class="dialer-search">
+                                <input placeholder="Type a name">
+                            </div>
+                            <div class="dialer-suggested">
+                                <label class="suggested-label">Suggested</label>
+                                <div class="suggested-list">
+                                    <div class="dialer-item">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
+                                            class="item-avatar">
+                                        <div class="item-info">
+                                            <label class="item-title">John Doe</label>
+                                            <label class="item-subtitle">Worker</label>
+                                        </div>
+                                        <div class="item-icons">
+                                            <div class="item-icon">
+                                                <i class="bi bi-mic"></i>
+                                            </div>
+                                            <div class="item-icon">
+                                                <i class="bi bi-camera-video"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dialer-item">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/9764/9764596.png"
+                                            class="item-avatar">
+                                        <div class="item-info">
+                                            <label class="item-title">Jane Yoon</label>
+                                            <label class="item-subtitle">Manager</label>
+                                        </div>
+                                        <div class="item-icons">
+                                            <div class="item-icon">
+                                                <i class="bi bi-mic"></i>
+                                            </div>
+                                            <div class="item-icon">
+                                                <i class="bi bi-camera-video"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dialer-item">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/149/149452.png"
+                                            class="item-avatar">
+                                        <div class="item-info"><label class="item-title">Kaladin Stormblessed</label>
+                                            <label class="item-subtitle">Admin</label>
+                                        </div>
+                                        <div class="item-icons">
+                                            <div class="item-icon">
+                                                <i class="bi bi-mic"></i>
+                                            </div>
+                                            <div class="item-icon">
+                                                <i class="bi bi-camera-video"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dialer-bottom">
+                                <div class="dialer-bottom-icon">
+                                    <i class="bi bi-play"></i>
+                                </div>
+                                <div class="dialer-bottom-icon">
+                                    <i class="bi bi-mic"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="calls-rightFold">
+                    <div class="rightFold">
+                        <div class="rightFold-heading">
+                            <label class="heading-label">Contacts</label>
+                        </div>
+                        <div class="rightFold-options">
+                            <div class="contact-search">
+                                <input placeholder="Find a contact">
+                                <div class="contact-search-icon">
+                                    <i class="bi bi-search"></i>
+                                </div>
+                            </div>
+                            <div class="add-button">
+                                <div class="add-icon">
+                                    <i class="bi bi-person-plus"></i>
+                                </div>
+                                <label class="add-label">Add Contact</label>
+                            </div>
+                        </div>
+                        <div class="contact-list">
+                            <div class="contact-card">
+                                <div class="contact-top">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                                        class="contact-avatar">
+                                    <div class="contact-info">
+                                        <label class="contact-title">Apple</label>
+                                        <label class="contact-subtitle">Worker</label>
+                                    </div>
+                                </div>
+                                <div class="contact-icons">
+                                    <div class="contact-icon">
+                                        <i class="bi bi-mic"></i>
+                                    </div>
+                                    <div class="contact-icon">
+                                        <i class="bi bi-camera-video"></i>
+                                    </div>
+                                    <div class="contact-icon">
+                                        <i class="bi bi-three-dots"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-card">
+                                <div class="contact-top">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/9597/9597392.png"
+                                        class="contact-avatar">
+                                    <div class="contact-info">
+                                        <label class="contact-title">Axe</label>
+                                        <label class="contact-subtitle">Manager</label>
+                                    </div>
+                                </div>
+                                <div class="contact-icons">
+                                    <div class="contact-icon">
+                                        <i class="bi bi-mic"></i>
+                                    </div>
+                                    <div class="contact-icon">
+                                        <i class="bi bi-camera-video"></i>
+                                    </div>
+                                    <div class="contact-icon">
+                                        <i class="bi bi-three-dots"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const tabBtn = document.querySelectorAll(".tab")
+        const tab = document.querySelectorAll(".tabShow")
+
+        function tabs(panelIndex) {
+            tab.forEach(function (node) {
+                node.style.display = "none";
+            });
+            tab[panelIndex].style.display = "block";
+        }
+        tabs(0);
+    </script>
+
+    <script>
+        let subMenu = document.getElementById("subMenu");
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+
+    </script>
+    <script src="../renderer.js"></script>
+</body>
+
+</html>

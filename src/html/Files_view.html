@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title>Files</title>
+
+    <link href="../components/common/header/header.css" rel="stylesheet">
+    <link href="../components/common/sidebar/sidebar.css" rel="stylesheet">
+    <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
+    <link href="../Style/files.css" rel="stylesheet">
+
+</head>
+
+
+<!---------------------------------------------------------------------------------------------->
+
+<body style="display: block; margin: auto;">
+    <div id="root">
+        <div class="files-container">
+            <div class="header">
+                <div class="header-menu">
+                    <i class="bi bi-columns-gap"></i>
+                </div>
+                <div class="header-leftFold">
+                    <label class="header-label">Quinones</label>
+                </div>
+                <div class="header-rightFold">
+                    <div class="header-search">
+                        <i class="bi bi-search"></i>
+                        <input placeholder="Search">
+                    </div>
+                    <div class="header-profile">
+                        <div class="header-options">
+                            <i class="bi bi-three-dots" onclick="toggleMenu()">
+                                <div class="sub-menu-wrap" id="subMenu">
+                                    <div class="sub-menu">
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Edit Profile</p>
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Settings & Privacy</p>
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Help & Support</p>
+                                        </a>
+                                        <a href="#" class="sub-menu-link">
+                                            <p>Logout</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </i>
+                            <!--
+                            <button onclick="toggleDropdown()">Options</button>
+                            <div id="dropdown" class="dropdown-content">
+                                <a href="#">Option 1</a>
+                                <a href="#">Option 2</a>
+                                <a href="#">Option 3</a>
+                            </div>
+                            -->
+                        </div>
+                        <a href="UserProfile_view.html">
+                            <div class="header-icon">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="files-body">
+                <!---------------------------------------------------------------------------------------------->
+                <div class="files-sidebar">
+                    <div class="sidebar">
+                        <div class="sidebar-top">
+                            <div class="sidebar-option">
+                                <a href="Home_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-house"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Home</label>
+                            </div>
+
+
+
+                            <div class="sidebar-option">
+                                <a href="Requests_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Requests</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Chat_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-chat-dots"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Chat</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Task_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-file-text"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Task</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Gantt-Chart_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-bar-chart-steps"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Gantt-Chart</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="Calender_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-calendar"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Calender</label>
+                            </div>
+
+                            <div class="sidebar-option">
+                                <a href="call-view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-telephone"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Calls</label>
+                            </div>
+
+                            <div class="sidebar-option active">
+                                <a href="Files_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-folder"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Files</label>
+                            </div>
+                        </div>
+                        <div class="sidebar-bottom">
+                            <div class="sidebar-option">
+                                <a href="Help_view.html">
+                                    <div class="sidebar-icon">
+                                        <i class="bi bi-question-circle"></i>
+                                    </div>
+                                </a>
+                                <label class="sidebar-label">Help</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="files-rightFold">
+                    <div class="rightFold">
+                        <div class="fold-container">
+                            <!--Use files.js source file-->
+                            <h2>Files</h2>
+                            <div class="button-group">
+                                <button onclick="">Upload File</button>
+                                <button onclick="">Create File</button>
+                                <button onclick="">Create Folder</button>
+                            </div>
+                        </div>
+                        <!--
+                            <button onclick="button()">Open File</button>
+                            <pre id="textarea" contenteditable spellcheck="false"></pre><br>
+                            <button onclick="save()">Save</button>
+                            <button onclick="saveAs()">Save As</button>
+                            -->
+                        <table class="file-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Modified</th>
+                                    <th>Modified By</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Document</td>
+                                    <td>Project Plan</td>
+                                    <td>2023-04-10</td>
+                                    <td>John Doe</td>
+                                    <td><button>Edit</button><button>Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Image</td>
+                                    <td>Logo.png</td>
+                                    <td>2023-04-11</td>
+                                    <td>Jane Smith</td>
+                                    <td><button>Edit</button><button>Delete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Spreadsheet</td>
+                                    <td>Budget.xlsx</td>
+                                    <td>2023-04-12</td>
+                                    <td>Mark Johnson</td>
+                                    <td><button>Edit</button><button>Delete</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const tabBtn = document.querySelectorAll(".tab")
+            const tab = document.querySelectorAll(".tabShow")
+
+            function tabs(panelIndex) {
+                tab.forEach(function (node) {
+                    node.style.display = "none";
+                });
+                tab[panelIndex].style.display = "block";
+            }
+            tabs(0);
+        </script>
+
+        <script>
+            let subMenu = document.getElementById("subMenu");
+            function toggleMenu() {
+                subMenu.classList.toggle("open-menu");
+            }
+
+        </script>
+        <!--
+        <script>
+            function toggleDropdown() {
+                var dropdown = document.getElementById("dropdown");
+                dropdown.classList.toggle("show");
+            }
+
+            window.onclick = function (event) {
+                if (!event.target.matches('.header button')) {
+                    var dropdown = document.getElementById("dropdown");
+                    if (dropdown.classList.contains('show')) {
+                        dropdown.classList.remove('show');
+                    }
+                }
+            }
+        </script>
+        -->
+        <script src="../Javascript/files.js"></script>
+        <script src="../renderer.js"></script>
+</body>
+
+</html>

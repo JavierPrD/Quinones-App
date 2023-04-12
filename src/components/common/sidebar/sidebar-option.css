@@ -1,0 +1,56 @@
+.sidebar-option{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 8px 0px;
+    color: #616161;
+    cursor: pointer;
+    
+    
+    
+}
+
+.sidebar-option:hover{
+    color: #3589f7;
+}
+
+.sidebar-option a{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 8px 0px;
+    color: #616161;
+    cursor: pointer;
+    
+}
+
+.sidebar-option a:hover{
+    color: #3589f7;
+    
+}
+
+.sidebar-option a:hover i{
+    color: inherit;
+    
+}
+
+
+
+.sidebar-label{
+    font-size: 9px;
+}
+
+.sidebar-icon{
+    font-size: 24px;
+}
+
+.active{
+    color: #6264a7;
+    border-left: 4px solid #6264a7;
+}
+
+

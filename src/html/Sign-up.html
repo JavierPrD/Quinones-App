@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <title>User Registration</title>
+    <link rel="stylesheet" href="../Style/Sign_up.css">
+    <!--<form action="action_page.php" style="border:1px solid #ccc">-->
+</head>
+
+<body>
+    <h1>User Registration</h1>
+    <hr>
+    <form action="/register" method="POST"">
+        <label for=" firstName">First Name:</label>
+        <input type="text" placeholder="Enter First Name" id="firstName" name="firstName" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" placeholder="Enter Last Name" id="lastName" name="lastName" required>
+        <label for="username">Username:</label>
+        <input type="text" placeholder="Enter Username" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" placeholder="Enter Password" id="password" name="password" required>
+        <br>
+        <!--
+        <label for="email">Email:</label>
+        <input type="email" placeholder="Enter Email" id="email" name="email" required>
+        -->
+
+        <button type="button" class="cancelbtn">Cancel</button>
+        <button type="submit" value="Register">Register</button>
+
+
+
+    </form>
+
+    <script src="../renderer.js"></script>
+
+</body>
+
+</html>
