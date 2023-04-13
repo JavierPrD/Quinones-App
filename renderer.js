@@ -39,3 +39,43 @@ api.receive("register-user-response", (data) => {
   }
 });
 //-----------IMPORTANT DO NOT DELETE KEEP--------------
+
+
+// Listen for messages from main process
+api.receive("login-reply", data => {
+  if (data.successful) {
+    console.log("Login successful");
+    openHomePage();
+  } else {
+    console.log("Login failed");
+  }
+});
+
+// Send message to main process
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  const credentials = { username, password };
+  api.send("login", credentials);
+}
+
+// Listen for click event on login button
+document.getElementById("login-button").addEventListener("click", login);
+
+// Open home page
+function openHomePage() {
+  const { BrowserWindow } = require("electron").remote;
+  const homePage = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+
+  homePage.loadFile("./html/Home_view.html");
+
+  homePage.on("closed", function () {
+    homePage = null;
+  });
+}

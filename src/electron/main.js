@@ -69,9 +69,35 @@ function createMain(){
   mainWin.loadFile(path.join(__dirname, "../html/Home_view.html"));
 }
 
+function createLogin(){
+  const loginWindow = new BrowserWindow({
+   
+    titleBarOverlay: {
+      color: "#2f3241",
+      symbolColor: "#74b1be",
+      height: 60,
+    },
+    title: "Quinones",
+    width: isDev ? 2000 : 500,
+    height: 1000,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      preload: path.join(__dirname, "preload.js"),
+    },
+  });
+  if (isDev) {
+   loginWindow.webContents.openDevTools();
+  }
+  loginWindow.loadFile(path.join(__dirname, "../html/Login.html"));
+}
+
+
+
 app.whenReady().then(() => {
   createWindow()
   createMain()
+  createLogin()
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -135,5 +161,21 @@ ipcMain.on('register-user', (event, userData) => {
     }
     console.log(`User data inserted successfully: ${result}`);
     event.reply('register-user-success', result);
+  });
+});
+
+ipcMain.on('login-successful', () => {
+  const homePage = new BrowserWindow({
+    width: isDev ? 2000 : 500,
+    height: 1000,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  homePage.loadFile('Home_view.html');
+
+  homePage.on('closed', () => {
+    homePage = null;
   });
 });
