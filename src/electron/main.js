@@ -5,7 +5,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const mysql = require('mysql');
 const isDev = process.env.NODE_ENV !== "production";
-
+/*
 function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -19,7 +19,7 @@ function createWindow () {
 
   mainWindow.loadFile('./index.html')
   
-  /*
+  
   mainWindow.webContents.on('did-finish-load', () => {
     const connection = mysql.createConnection({
       host: 'localhost',
@@ -43,8 +43,9 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-  */
+  
 }
+*/
 
 function createMain(){
   const mainWin = new BrowserWindow({
@@ -95,8 +96,8 @@ function createLogin(){
 
 
 app.whenReady().then(() => {
-  createWindow()
-  createMain()
+  //createWindow()
+  //createMain()
   createLogin()
 
   app.on('activate', function () {
@@ -163,19 +164,26 @@ ipcMain.on('register-user', (event, userData) => {
     event.reply('register-user-success', result);
   });
 });
+/*DO NOT TOUCH VERY IMPORTANT FOR ELECTRON APP AND DATABASE INTERACTION */
 
-ipcMain.on('login-successful', () => {
-  const homePage = new BrowserWindow({
-    width: isDev ? 2000 : 500,
-    height: 1000,
-    webPreferences: {
-      nodeIntegration: true
+ipcMain.on('verify-user', (event, userData) => {
+  const { username, password } = userData;
+
+  const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
+  const values = [username, password];
+
+  connection.query(query, values, (err, result) => {
+    if (err) {
+      console.log(`Error verifying user data in database: ${err}`);
+      event.reply('verify-user-error', err);
+      return;
     }
-  });
-
-  homePage.loadFile('Home_view.html');
-
-  homePage.on('closed', () => {
-    homePage = null;
+    if (result.length === 0) {
+      console.log(`User not found or invalid credentials`);
+      event.reply('verify-user-failure', 'User not found or invalid credentials');
+    } else {
+      console.log(`User verified successfully: ${result}`);
+      event.reply('verify-user-success', result);
+    }
   });
 });

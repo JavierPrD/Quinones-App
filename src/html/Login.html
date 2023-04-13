@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Login Page</title>
@@ -6,24 +7,37 @@
 </head>
 
 <body>
-  <form action="/login" method="post">
-    <div class="title-container">Quinones</div>
-    <!--
-        <div class="imgcontainer">
-            <img src="img/login.png" alt="Avatar" class="avatar">
-        </div>
-        -->
+  <h1>Login</h1>
+  <form id="login-form">
     <div class="container">
-      <label for="username">Username:</label>
-      <input id="username" type="text" placeholder="Enter Username" name="username" required>
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-      <button id="login" type="submit">Login</button>
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username-input" name="username" placeholder="Enter Username">
+      </div>
+      <div>
+        <label for="password"><b>Password</b></label>
+        <input type="password" id="password-input" name="password" placeholder="Enter Password">
+      </div>
+      <button id="login-button" type="submit">Login</button>
       <label>Don't Have an Account?</label><a href="Sign-up.html">Sign Here</a>
     </div>
   </form>
 
   <script src="../js/login.js"></script>
-  <script src="../renderer.js"></script>
+  <script>
+    // Listen for login response from main process
+    api.on('verify-user-success', (event, userData) => {
+      //If the if statement says (!userdata) then the even if the credentials are correct it will not redirect the user to the home page.
+      // If userData is null, login failed
+      if (userData) {
+        alert('Login failed. Please try again.');
+        return;
+      }
+      // Login succeeded, redirect to home page
+      window.location.href = "./Home_view.html";
+    });
+  </script>
+
 </body>
+
 </html>

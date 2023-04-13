@@ -1,52 +1,34 @@
-const electron = require('electron');
-const mysql = require('mysql');
-
-const { remote, ipcRenderer } = electron;
-const { BrowserWindow } = remote;
-
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'capstone'
-});
-
-const loginForm = document.getElementById('login-form');
-
+const loginForm = document.querySelector('#login-form');
 loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  
-  const username = loginForm.username.value;
-  const password = loginForm.password.value;
-  
-  db.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (error, results) => {
-    if (error) {
-      console.error(error);
-      return;
-    }
-    
-    if (results.length > 0) {
-      console.log('Login successful');
-      ipcRenderer.send('login-successful');
-      //openHomePage();
-    } else {
-      console.log('Login failed');
-    }
-  });
+
+  // Get username and password input values
+  const username = document.querySelector('#username-input').value;
+  const password = document.querySelector('#password-input').value;
+
+  // Send login request to main process
+  api.send('verify-user', { username, password });
 });
 
-function openHomePage() {
-  const homePage = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  });
+// Listen for login response from main process
+api.on('login-response', (event, userData) => {
+  // If userData is null, login failed
+  if (!userData) {
+    alert('Login failed. Please try again.');
+    return;
+  }
 
-  homePage.loadFile('Home_view.html');
+  // Login succeeded, do something with userData
+  console.log('User data:', userData);
+  // Login succeeded, redirect to home page
+  window.location.href = '.html/Home_view.html';
+});
 
-  homePage.on('closed', () => {
-    homePage = null;
-  });
-}
+api.on('verify-user-failure', (event, message) => {
+  alert(message);
+});
+
+api.on('verify-user-error', (event, error) => {
+  console.log(error);
+  alert('An error occurred while verifying user data. Please try again later.');
+});

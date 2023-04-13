@@ -9,30 +9,22 @@
 <body>
     <h1>User Registration</h1>
     <hr>
-    <form action="/register" method="POST"">
-        <label for=" firstName">First Name:</label>
-        <input type="text" placeholder="Enter First Name" id="firstName" name="firstName" required>
-        <label for="lastName">Last Name:</label>
-        <input type="text" placeholder="Enter Last Name" id="lastName" name="lastName" required>
-        <label for="username">Username:</label>
-        <input type="text" placeholder="Enter Username" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" placeholder="Enter Password" id="password" name="password" required>
-        <br>
-        <!--
-        <label for="email">Email:</label>
-        <input type="email" placeholder="Enter Email" id="email" name="email" required>
-        -->
+    <div id="root"></div>
 
-        <button type="button" class="cancelbtn">Cancel</button>
-        <button type="submit" value="Register">Register</button>
-
-
-
+    <!--DO NOT DELETE KEEP -->
+    <form id="register-form">
+      <label for="id">ID:</label>
+      <input type="text" id="id" name="id"><br><br>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email"><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"><br><br>
+      <button type="button" id="register-button">Register</button>
     </form>
-
-    <script src="../renderer.js"></script>
+    <button id="send-message">Send Message to Main Process</button>
+    <script src="../js/register.js"></script>
 
 </body>
 

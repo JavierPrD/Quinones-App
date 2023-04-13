@@ -12,7 +12,8 @@
   "author": "Javier Prieto",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^24.1.1"
+    "electron": "^24.1.1",
+    "electron-reload": "^2.0.0-alpha.1"
   },
   "dependencies": {
     "mysql": "^2.18.1",
