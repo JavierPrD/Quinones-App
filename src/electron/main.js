@@ -1,6 +1,6 @@
 //IMPORTANT DO NOT DELETE THE FOLLOWING ALLOWS FOR USERS IN THE ELECTRON APP
 //TO INPUT VALUES THAT ARE SAVED TO THE MYSQL DATABASE DO NOT MESS WITH IPCRENDERER, PRELOAD.JS, AND RENDERER,JS
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
 const path = require("path");
 const mysql = require("mysql");
 const isDev = process.env.NODE_ENV !== "production";
@@ -8,7 +8,7 @@ const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
 
 
 //Displays database content onto electron application front-end
-dbDisplayToApp();
+//dbDisplayToApp();
 
 function createMain() {
   const mainWin = new BrowserWindow({
@@ -112,3 +112,5 @@ ipcMain.on("verify-user", (event, userData) => {
   });
 });
 /*DO NOT TOUCH VERY IMPORTANT FOR ELECTRON APP AND DATABASE INTERACTION */
+
+ipcRenderer.send('template-rendered', html);
