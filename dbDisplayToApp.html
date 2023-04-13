@@ -1,0 +1,29 @@
+<html>
+<body>
+    <div><label>Hello World</label></div>
+    <div id="tableData"></div>
+    <script>
+        const { ipcRenderer } = require('electron')
+        ipcRenderer.on('tableData', (event, rows) => {
+            const tableData = document.getElementById('tableData')
+            let html = '<table><thead><tr>'
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i]
+                if (i === 0) {
+                    for (const field in row) {
+                        html += `<th>${field}</th>`
+                    }
+                    html += '</tr></thead><tbody>'
+                }
+                html += '<tr>'
+                for (const field in row) {
+                    html += `<td>${row[field]}</td>`
+                }
+                html += '</tr>'
+            }
+            html += '</tbody></table>'
+            tableData.innerHTML = html
+        })
+    </script>
+</body>
+</html>

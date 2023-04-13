@@ -5,47 +5,12 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const mysql = require('mysql');
 const isDev = process.env.NODE_ENV !== "production";
-/*
-function createWindow () {
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js')
-    }
-  })
+const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
 
-  mainWindow.loadFile('./index.html')
-  
-  
-  mainWindow.webContents.on('did-finish-load', () => {
-    const connection = mysql.createConnection({
-      host: 'localhost',
-     user: 'root',
-    password: 'password',
-    //database: 'quinones'
-    database: 'capstone'
-    });
 
-    connection.connect((err) => {
-      if (err) {
-        console.log('Error connecting to MySQL:', err);
-        return;
-      }
-      console.log('Connected to MySQL successfully!');
-    });
+//Displays database content onto electron application front-end
+dbDisplayToApp();
 
-    mainWindow.webContents.send('mysql-connection', connection);
-  });
-
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
-  
-}
-*/
 
 function createMain(){
   const mainWin = new BrowserWindow({
@@ -148,6 +113,7 @@ connection.connect((err) => {
   }
   console.log('Connected to database successfully!');
 });
+/*
 ipcMain.on('register-user', (event, userData) => {
   const { id, username, email, password } = userData;
 
@@ -164,12 +130,29 @@ ipcMain.on('register-user', (event, userData) => {
     event.reply('register-user-success', result);
   });
 });
+*/
+ipcMain.on('register-user', (event, userData) => {
+  const { firstName, lastName, username, email, password, role } = userData;
+
+  const query = `INSERT INTO user (firstName, lastName, username, email, password, role) VALUES (?, ?, ?, ?, ?, ?)`;
+  const values = [firstName, lastName, username, email, password, role];
+
+  connection.query(query, values, (err, result) => {
+    if (err) {
+      console.log(`Error inserting user data into database: ${err}`);
+      event.reply('register-user-error', err);
+      return;
+    }
+    console.log(`User data inserted successfully: ${result}`);
+    event.reply('register-user-success', result);
+  });
+});
 /*DO NOT TOUCH VERY IMPORTANT FOR ELECTRON APP AND DATABASE INTERACTION */
 
 ipcMain.on('verify-user', (event, userData) => {
   const { username, password } = userData;
 
-  const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
+  const query = `SELECT * FROM user WHERE username = ? AND password = ?`;
   const values = [username, password];
 
   connection.query(query, values, (err, result) => {
@@ -187,3 +170,6 @@ ipcMain.on('verify-user', (event, userData) => {
     }
   });
 });
+
+
+

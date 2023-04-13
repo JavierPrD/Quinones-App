@@ -1,30 +1,43 @@
 <html>
 
 <head>
-    <title>User Registration</title>
-    <link rel="stylesheet" href="../css/Sign_up.css">
-    <!--<form action="action_page.php" style="border:1px solid #ccc">-->
+  <title>User Registration</title>
+  <link rel="stylesheet" href="../css/Sign_up.css">
+  <!--<form action="action_page.php" style="border:1px solid #ccc">-->
 </head>
 
 <body>
-    <h1>User Registration</h1>
-    <hr>
-    <div id="root"></div>
+  <h1>User Registration</h1>
+  <hr>
+  <div id="root"></div>
 
-    <!--DO NOT DELETE KEEP -->
-    <form id="register-form">
-      <label for="id">ID:</label>
-      <input type="text" id="id" name="id"><br><br>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username"><br><br>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email"><br><br>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password"><br><br>
-      <button type="button" id="register-button">Register</button>
-    </form>
-    <button id="send-message">Send Message to Main Process</button>
-    <script src="../js/register.js"></script>
+  <!--DO NOT DELETE KEEP -->
+  <form id="register-form"> <!--Links to register-form in register.js-->
+
+
+
+
+    <!--DO NOT DELETE KEEP 
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id"><br><br>
+  -->
+    <label for="firstName">First Name:</label>
+    <input type="text" placeholder="Enter First Name" id="firstName" name="firstName" required>
+    <label for="lastName">Last Name:</label>
+    <input type="text" placeholder="Enter Last Name" id="lastName" name="lastName" required>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" placeholder="Enter Username"><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" placeholder="Enter Email Address"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Enter Password"><br><br>
+    <label for="roles">Select a Role:</label>
+    <!--register.js includes the role button that allows database register with value of either admin, manager, or worker -->
+    <button type="button" id="register-button" class="register-button">Register</button>
+    <button type="button" class="cancelbtn">Cancel</button>
+  </form>
+  <button id="send-message">Send Message to Main Process</button>
+  <script src="../renderer/register.js"></script>
 
 </body>
 

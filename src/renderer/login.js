@@ -3,8 +3,8 @@ loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
   // Get username and password input values
-  const username = document.querySelector('#username-input').value;
-  const password = document.querySelector('#password-input').value;
+  const username = document.querySelector('#username').value;
+  const password = document.querySelector('#password').value;
 
   // Send login request to main process
   api.send('verify-user', { username, password });
