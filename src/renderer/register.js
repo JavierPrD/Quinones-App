@@ -1,6 +1,7 @@
 //renderer file but title as register.js
 //api has already been declared do not add const{ipcRenderer: api}
 
+
 api.receive("message-from-main", (data) => {
   console.log(`Received message from main process: ${data}`);
 });

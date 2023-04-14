@@ -1,20 +1,25 @@
-const mysql = require("mysql");
+// Import the mysql2 package
+const mysql = require("mysql2/promise");
 
-const connection = mysql.createConnection({
+// Create a connection pool
+const pool = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "password",
-  //database: 'quinones'
   database: "capstone",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
 
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to database: ", err);
-    return;
-  }
-  console.log("Connected to database");
-});
+// Export a function to query the database
+module.exports = async function query(sql, values) {
+  const [rows, fields] = await pool.execute(sql, values);
+  return rows;
+};
+
+
+
 
 function createUser(userData) {
   const { username, email, password } = userData;
@@ -26,8 +31,7 @@ function createUser(userData) {
   });
 }
 
-
-
+/*
 module.exports = connection;
 
 //method/functions are delcared here but must be declared again in the main.js file
@@ -64,3 +68,4 @@ module.exports = {
     });
   },
 };
+*/

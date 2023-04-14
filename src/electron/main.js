@@ -1,17 +1,145 @@
 //IMPORTANT DO NOT DELETE THE FOLLOWING ALLOWS FOR USERS IN THE ELECTRON APP
 //TO INPUT VALUES THAT ARE SAVED TO THE MYSQL DATABASE DO NOT MESS WITH IPCRENDERER, PRELOAD.JS, AND RENDERER,JS
 const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
+const http = require("http");
 const path = require("path");
 const mysql = require("mysql");
-const isDev = process.env.NODE_ENV !== "production";
-const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
+//const mysql2 = require("mysql2");
 
+const isDev = process.env.NODE_ENV !== "production";
+//const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
 
 //Displays database content onto electron application front-end
 //dbDisplayToApp();
 
 function createMain() {
-  const mainWin = new BrowserWindow({
+  const loginWindow  = new BrowserWindow({
+    titleBarOverlay: {
+      color: "#2f3241",
+      symbolColor: "#74b1be",
+      height: 60,
+    },
+    title: "Quinones",
+    width: isDev ? 2000 : 500,
+    height: 1000,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      //preload: path.join(__dirname, "preload.js"),
+    },
+  });
+  
+  if (isDev) {
+    loginWindow.webContents.openDevTools();
+  }
+  loginWindow.loadFile("src/html/Login.html");
+  // When the window is ready, send a message to the userprofile.js process to retrieve the user's information
+  
+  
+  // Create the homepage window
+  const homeWindow = new BrowserWindow({
+    titleBarOverlay: {
+      color: "#2f3241",
+      symbolColor: "#74b1be",
+      height: 60,
+    },
+    title: "Quinones",
+    width: isDev ? 2000 : 500,
+    height: 1000,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+    show: false // Don't show the window until the user is authenticated
+  });
+  // Load the homepage page
+  homeWindow.loadFile('src/html/Home_view.html');
+  
+
+
+
+
+
+
+  
+  // Add listener for when the user is authenticated
+  app.on("authenticated", () => {
+    // Show the homepage window
+    homeWindow.show();
+  });
+  // Add listener for when the login window is closed
+  loginWindow.on("closed", () => {
+    // Close the homepage window if it's still open
+    if (!homeWindow.isDestroyed()) {
+      homeWindow.close();
+    }
+  });
+  // Add listener for when the login form is submitted
+  loginWindow.webContents.on("form-submit", () => {
+    // Authenticate the user
+    const isValidUser = true; // Implement your authentication logic here
+
+    if (isValidUser) {
+      // Send authenticated event to main process
+      app.emit("authenticated");
+    } else {
+      // Show error message in the login window
+      loginWindow.webContents.send(
+        "show-error-message",
+        "Invalid username or password."
+      );
+    }
+  });
+}
+
+
+
+
+
+
+
+function createTest() {
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+
+  mainWindow.loadFile("./src/html/test.html");
+
+  mainWindow.on("closed", function () {
+    mainWindow = null;
+  });
+}
+
+function createProfile() {
+  const profileWindow = new BrowserWindow({
+    titleBarOverlay: {
+      color: "#2f3241",
+      symbolColor: "#74b1be",
+      height: 60,
+    },
+    title: "Quinones",
+    width: isDev ? 2000 : 500,
+    height: 1000,
+    webPreferences: {
+      nodeIntegration: true,
+      //Keep contextIsolation: false this will allow IPC to render the database content onto the profile page
+      contextIsolation: false,
+    },
+  });
+  if (isDev) {
+    profileWindow.webContents.openDevTools();
+  }
+  profileWindow.loadFile(path.join(__dirname, "../html/UserProfile_view.html"));
+  // When the window is ready, send a message to the userprofile.js process to retrieve the user's information
+}
+
+function createFinal() {
+  finalWindow = new BrowserWindow({
     titleBarOverlay: {
       color: "#2f3241",
       symbolColor: "#74b1be",
@@ -26,27 +154,99 @@ function createMain() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
-  if (isDev) {
-    mainWin.webContents.openDevTools();
-  }
-  mainWin.loadFile(path.join(__dirname, "../html/Login.html"));
-  // When the window is ready, send a message to the userprofile.js process to retrieve the user's information
+
+  finalWindow.loadFile("./src/html/Sign-up.html");
+
+  finalWindow.on("closed", function () {
+    finalWindow = null;
+  });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+//------------------------------------------------------------------------
 app.whenReady().then(() => {
   //createWindow()
   createMain();
+  //createTest();
+  //createProfile();
+  //createFinal();
 
-  app.on("activate", function () {
-    if (BrowserWindow.getAllWindows().length === 0) createMain();
+  /*
+  const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "password",
+    database: "capstone",
   });
-});
 
+  connection.connect();
+  ipcMain.on("get-data", (event) => {
+    connection.query("SELECT * FROM user", (error, results) => {
+      if (error) {
+        throw error;
+      }
+
+      event.reply("data", results);
+    })
+    */
+});
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
 });
 
+// Call the function to retrieve data from the database
+app.on("activate", function () {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createMain();
+    //createWindow();
+  }
+});
 
+//------------------------------------------------------------------------
+//HTTP Server For Electron Application
+//Server to expose endpoints for the application to interact with
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain");
+  res.end("Local Host display following: Hello, World!");
+});
+
+server.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
+
+const options = {
+  hostname: "localhost",
+  port: 3000,
+  path: "/api/data",
+  method: "GET",
+};
+
+const req = http.request(options, (res) => {
+  console.log(`statusCode: ${res.statusCode}`);
+
+  res.on("data", (data) => {
+    console.log(data.toString());
+  });
+});
+
+req.on("error", (error) => {
+  console.error(error);
+});
+
+req.end();
+//----------------------------------------------------------------------------
+//MySQL Database Connection
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -61,7 +261,6 @@ connection.connect((err) => {
   }
   console.log("Connected to database successfully!");
 });
-
 
 /*DO NOT TOUCH VERY IMPORTANT FOR ELECTRON APP AND DATABASE INTERACTION */
 ipcMain.on("message-from-renderer", (event, arg) => {
@@ -86,7 +285,6 @@ ipcMain.on("register-user", (event, userData) => {
   });
 });
 
-
 ipcMain.on("verify-user", (event, userData) => {
   const { username, password } = userData;
 
@@ -106,6 +304,20 @@ ipcMain.on("verify-user", (event, userData) => {
         "User not found or invalid credentials"
       );
     } else {
+      // Update the loggedIn flag for the user
+      connection.query(
+        "UPDATE users SET loggedIn = TRUE WHERE id = ?",
+        [userData.id],
+        (err, result) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log("User logged in successfully");
+          }
+        }
+      );
+      event.reply("login-response", userData);
+
       console.log(`User verified successfully: ${result}`);
       event.reply("verify-user-success", result);
     }
@@ -113,4 +325,6 @@ ipcMain.on("verify-user", (event, userData) => {
 });
 /*DO NOT TOUCH VERY IMPORTANT FOR ELECTRON APP AND DATABASE INTERACTION */
 
-ipcRenderer.send('template-rendered', html);
+ipcMain.on('display-text', (event, text) => {
+  mainWindow.webContents.send('display-text', text);
+});

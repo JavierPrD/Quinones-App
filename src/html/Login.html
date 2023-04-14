@@ -19,17 +19,18 @@
         <input type="password" id="password" name="password" placeholder="Enter Password">
       </div>
       <button id="login-button" type="submit">Login</button>
-      <label>Don't Have an Account?</label><a href="Sign-up.html">Sign Here</a>
+      <!--<label>Don't Have an Account?</label><a href="Sign-up.html">Sign Here</a>-->
     </div>
   </form>
 
   <script src="../renderer/login.js"></script>
+  <!--
   <script>
     // Listen for login response from main process
-    api.on('verify-user-success', (event, userData) => {
+    ipcRenderer.on('verify-user-success', (event, userData) => {
       //If the if statement says (!userdata) then the even if the credentials are correct it will not redirect the user to the home page.
       // If userData is null, login failed
-      if (userData) {
+      if (!userData) {
         alert('Login failed. Please try again.');
         return;
       }
@@ -37,6 +38,7 @@
       window.location.href = "./Home_view.html";
     });
   </script>
+  -->
 
 </body>
 
