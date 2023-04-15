@@ -1,4 +1,4 @@
-/*
+
 const { ipcRenderer } = require("electron");
 
 const loginForm = document.querySelector('#login-form');
@@ -23,7 +23,7 @@ ipcRenderer.on('login-response', (event, userData) => {
     return;
   }
   // Login succeeded, redirect to home page
-  window.location.href = '.html/Home_view.html';
+  window.location.href = 'Home_view.html';
 });
 
 ipcRenderer.on('verify-user-failure', (event, message) => {
@@ -34,11 +34,12 @@ ipcRenderer.on('verify-user-error', (event, error) => {
   console.log(error);
   alert('An error occurred while verifying user data. Please try again later.');
 });
-*/
 
-// Import the query function from db.js
-const query = require('../database');
 
+
+
+
+/*
 // Get login form element
 const loginForm = document.querySelector('#login-form');
 
@@ -65,3 +66,4 @@ loginForm.addEventListener('submit', async (event) => {
     errorMessage.textContent = 'Invalid username or password.';
   }
 });
+*/

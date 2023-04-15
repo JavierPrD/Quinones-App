@@ -41,16 +41,19 @@ ipcRenderer.receive("register-user-response", (data) => {
 const roleSelect = document.createElement("select");
 roleSelect.setAttribute("id", "role");
 roleSelect.setAttribute("name", "role");
-
-["Admin", "Manager", "Worker"].forEach(role => {
+const roles = ["Admin", "Manager", "Worker"];
+for (let i = 0; i < roles.length; i++) {
   const option = document.createElement("option");
-  option.setAttribute("value", role);
-  option.text = role;
+  option.setAttribute("value", roles[i]);
+  option.text = roles[i];
   roleSelect.appendChild(option);
-});
+}
+registerForm.insertBefore(
+  roleSelect,
+  document.getElementById("register-button")
+);
 
-registerForm.insertBefore(roleSelect, registerButton);
-
-document.querySelector(".cancelbtn").addEventListener("click", () => {
+const cancelButton = document.querySelector(".cancelbtn");
+cancelButton.addEventListener("click", () => {
   window.history.back();
 });

@@ -3,18 +3,17 @@
 const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
 const http = require("http");
 const path = require("path");
-
 const mysql = require("mysql");
-
-
 const isDev = process.env.NODE_ENV !== "production";
-const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
+
+
 
 //Displays database content onto electron application front-end
-dbDisplayToApp();
+//const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
+//dbDisplayToApp();
 
 function createMain() {
-  const loginWindow  = new BrowserWindow({
+  const loginWindow = new BrowserWindow({
     titleBarOverlay: {
       color: "#2f3241",
       symbolColor: "#74b1be",
@@ -29,14 +28,13 @@ function createMain() {
       //preload: path.join(__dirname, "preload.js"),
     },
   });
-  
+
   if (isDev) {
     loginWindow.webContents.openDevTools();
   }
   loginWindow.loadFile("src/html/Login.html");
   // When the window is ready, send a message to the userprofile.js process to retrieve the user's information
-  
-  
+
   // Create the homepage window
   const homeWindow = new BrowserWindow({
     titleBarOverlay: {
@@ -51,18 +49,11 @@ function createMain() {
       nodeIntegration: true,
       contextIsolation: false,
     },
-    show: false // Don't show the window until the user is authenticated
+    show: false, // Don't show the window until the user is authenticated
   });
   // Load the homepage page
-  homeWindow.loadFile('src/html/Home_view.html');
-  
+  homeWindow.loadFile("src/html/Home_view.html");
 
-
-
-
-
-
-  
   // Add listener for when the user is authenticated
   app.on("authenticated", () => {
     // Show the homepage window
@@ -93,13 +84,7 @@ function createMain() {
   });
 }
 
-
-
-
-
-
-
-function createTest() {
+/*function createTest() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -114,7 +99,7 @@ function createTest() {
   mainWindow.on("closed", function () {
     mainWindow = null;
   });
-}
+}*/
 
 function createProfile() {
   const profileWindow = new BrowserWindow({
@@ -151,7 +136,9 @@ function createFinal() {
     height: 1000,
     webPreferences: {
       nodeIntegration: true,
+      //contextIsolation is needed to be set to true always to allow preload.js to be rendered into the application
       contextIsolation: true,
+      //preload is require to get the "Register" button in the sign-up page to work
       preload: path.join(__dirname, "preload.js"),
     },
   });
@@ -163,26 +150,38 @@ function createFinal() {
   });
 }
 
+function createGantt() {
+  ganttWindow = new BrowserWindow({
+    titleBarOverlay: {
+      color: "#2f3241",
+      symbolColor: "#74b1be",
+      height: 60,
+    },
 
-
-
-
-
-
-
-
-
-
+    width: isDev ? 2000 : 500,
+    height: 1000,
+    webPreferences: {
+      nodeIntegration: true,
+      //contextIsolation is needed to be set to true always to allow preload.js to be rendered into the application
+      contextIsolation: false,
+    },
+  });
+  if (isDev) {
+    ganttWindow.webContents.openDevTools();
+    
+  }
+  ganttWindow.loadFile("./src/html/Gantt-Chart_view.html");
+}
 
 //------------------------------------------------------------------------
 app.whenReady().then(() => {
-  
-  createMain();
-  createTest();
-  createProfile();
+  //createMain();
+  //createTest();
+  //createProfile();
   createFinal();
+  createGantt();
 
-  
+  //Require to render database table into user profile page do not
   const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -326,6 +325,6 @@ ipcMain.on("verify-user", (event, userData) => {
 });
 /*DO NOT TOUCH VERY IMPORTANT FOR ELECTRON APP AND DATABASE INTERACTION */
 
-ipcMain.on('display-text', (event, text) => {
-  mainWindow.webContents.send('display-text', text);
+ipcMain.on("display-text", (event, text) => {
+  mainWindow.webContents.send("display-text", text);
 });

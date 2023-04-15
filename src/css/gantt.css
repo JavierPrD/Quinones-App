@@ -39,3 +39,43 @@
     display: block;
 }
 
+
+
+
+
+
+.gantt_task {
+    border: 1px solid #ccc;
+    background-color: #f6f6f6;
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .gantt_task .gantt_task_content {
+    padding: 5px;
+  }
+  
+  .gantt_scale_cell {
+    border-right: 1px solid #ccc;
+    background-color: #f6f6f6;
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .gantt_grid_head_cell {
+    border-right: 1px solid #ccc;
+    background-color: #f6f6f6;
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .gantt_grid_row {
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+  }
