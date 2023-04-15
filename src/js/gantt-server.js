@@ -5,7 +5,7 @@ var path = require('path');
 var port = 1337;
 var app = express();
 
-app.use(express.static(path.join(__dirname, "html")))
+app.use(express.static(path.join("public")))
 app.use(bodyParser.urlencoded({ extended: true}));
 
 app.listen(port, function(){
