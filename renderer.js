@@ -41,16 +41,3 @@ api.receive("register-user-response", (data) => {
 //-----------IMPORTANT DO NOT DELETE KEEP--------------
 
 
-
-
-
-/*
-const { ipcRenderer } = require('electron');
-
-const descriptionBtn = document.querySelector('#descriptionBtn');
-
-descriptionBtn.addEventListener('click', () => {
-  ipcRenderer.send('navigate-to-description');
-});
-
-*/

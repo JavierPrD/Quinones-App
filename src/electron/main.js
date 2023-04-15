@@ -3,14 +3,15 @@
 const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
 const http = require("http");
 const path = require("path");
+
 const mysql = require("mysql");
-//const mysql2 = require("mysql2");
+
 
 const isDev = process.env.NODE_ENV !== "production";
-//const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
+const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
 
 //Displays database content onto electron application front-end
-//dbDisplayToApp();
+dbDisplayToApp();
 
 function createMain() {
   const loginWindow  = new BrowserWindow({
@@ -175,13 +176,13 @@ function createFinal() {
 
 //------------------------------------------------------------------------
 app.whenReady().then(() => {
-  //createWindow()
+  
   createMain();
-  //createTest();
-  //createProfile();
-  //createFinal();
+  createTest();
+  createProfile();
+  createFinal();
 
-  /*
+  
   const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -197,9 +198,10 @@ app.whenReady().then(() => {
       }
 
       event.reply("data", results);
-    })
-    */
+    });
+  });
 });
+
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
 });
@@ -317,7 +319,6 @@ ipcMain.on("verify-user", (event, userData) => {
         }
       );
       event.reply("login-response", userData);
-
       console.log(`User verified successfully: ${result}`);
       event.reply("verify-user-success", result);
     }
