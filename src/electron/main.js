@@ -5,6 +5,30 @@ const http = require("http");
 const path = require("path");
 const mysql = require("mysql");
 const isDev = process.env.NODE_ENV !== "production";
+const express = require('express');
+
+
+ //--------------------------------------------------
+ //Gantt-Chart with DHTMLX Node.js
+const port = 1337;
+const exp = express();
+exp.listen(port, () =>{
+    console.log("Server is running on port "+port+"...");
+});
+
+//--------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -171,6 +195,7 @@ function createGantt() {
     
   }
   ganttWindow.loadFile("./src/html/Gantt-Chart_view.html");
+  //ganttWindow.loadFile("./dhx-gantt-app/public/index.html");
 }
 
 //------------------------------------------------------------------------
@@ -178,7 +203,7 @@ app.whenReady().then(() => {
   //createMain();
   //createTest();
   //createProfile();
-  createFinal();
+  //createFinal();
   createGantt();
 
   //Require to render database table into user profile page do not

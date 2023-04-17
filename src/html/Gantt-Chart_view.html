@@ -15,7 +15,7 @@
     <link href="../css/gantt.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css">
-    
+
     <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
 </head>
 
@@ -175,9 +175,13 @@
                     <div class="rightFold">
                         <div class="fold-container">
                             <h2>Gantt-Chart</h2>
-                            <div id="gantt-chart"></div>
-                            <div id="gantt_here" style="width: 100%; height: 100%;"></div>
-                            
+                            <div id="gantt_here" style="width: 99%; height: 85%;"></div>
+                            <script type="text/javascript">
+                               
+                                gantt.init("gantt_here");
+                                
+                            </script>
+
                         </div>
                     </div>
                 </div><!-----End of Right Fold -->
@@ -203,13 +207,8 @@
                 }
 
             </script>
-            <script>
-                window.addEventListener("DOMContentLoaded", function(){
-                    gantt.init("gantt_here");
-                    
-                })
-            </script>
-            
+
+
 </body>
 
 </html>
