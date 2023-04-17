@@ -1,0 +1,46 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "text": "Task #1",
+            "start_date": "2023-04-18 00:00",
+            "duration": 3,
+            "user_id": 1
+        },
+        {
+            "id": 2,
+            "text": "Task #2",
+            "start_date": "2023-04-18 03:00",
+            "duration": 4,
+            "user_id": 2
+        },
+        {
+            "id": 3,
+            "text": "Task #3",
+            "start_date": "2023-04-19 12:00",
+            "duration": 2,
+            "user_id": 1
+        },
+        {
+            "id": 4,
+            "text": "Task #4",
+            "start_date": "2023-04-20 08:00",
+            "duration": 1,
+            "user_id": 3
+        }
+    ],
+    "users": [
+        {
+            "key": 1,
+            "label": "John"
+        },
+        {
+            "key": 2,
+            "label": "Jane"
+        },
+        {
+            "key": 3,
+            "label": "Bob"
+        }
+    ]
+}

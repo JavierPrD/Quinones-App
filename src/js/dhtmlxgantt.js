@@ -1,14 +1,114 @@
-import gantt from "dhtmlx-gantt";
+function getUser(user_id) {
+  for (var i = 0; i < users.length; i++) {
+      if (users[i].key == user_id) {
+          return users[i].label;
+      }
+  }
+  return "";
+}
 
-// This is where you would import the DHTMLX Gantt library, either by downloading it and including it in your project, or by using a package manager like npm or yarn.
-// For example:
-// import gantt from "dhtmlx-gantt";
+var users = [];
 
-gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
-gantt.init("gantt-chart");
-const tasks = [
-  {"id":1,"text":"Task 1","start_date":"2023-04-15 09:00","duration":3},
-  {"id":2,"text":"Task 2","start_date":"2023-04-15 12:00","duration":2},
-  {"id":3,"text":"Task 3","start_date":"2023-04-15 15:00","duration":1}
-];
-gantt.parse(tasks);
+function getUsersFromDb() {
+  fetch('/users')
+      .then(res => res.json())
+      .then(data => {
+          users = data;
+          gantt.templates.user_id = function (item) {
+              return getUser(item.user_id);
+          };
+          gantt.config.lightbox.sections = [
+              {
+                  name: "users",
+                  height: 22,
+                  map_to: "user_id",
+                  type: "select",
+                  options: users
+              },
+              {
+                  name: "description",
+                  height: 70,
+                  map_to: "text",
+                  type: "textarea",
+                  focus: true
+              },
+              {
+                  name: "time",
+                  height: 72,
+                  map_to: "auto",
+                  type: "duration"
+              }
+          ];
+          gantt.init("gantt_here");
+          gantt.parse(tasks);
+      })
+      .catch(err => console.log(err));
+}
+
+function getUsersFromDb() {
+  fetch('/users')
+      .then(res => res.json())
+      .then(data => {
+          users = data;
+          gantt.templates.user_id = function (item) {
+              return getUser(item.user_id);
+          };
+          gantt.config.lightbox.sections = [
+              {
+                  name: "users",
+                  height: 22,
+                  map_to: "user_id",
+                  type: "select",
+                  options: users
+              },
+              {
+                  name: "description",
+                  height: 70,
+                  map_to: "text",
+                  type: "textarea",
+                  focus: true
+              },
+              {
+                  name: "time",
+                  height: 72,
+                  map_to: "auto",
+                  type: "duration"
+              }
+          ];
+          gantt.init("gantt_here");
+          gantt.parse(tasks);
+      })
+      .catch(err => console.log(err));
+}
+
+// Function to connect to the database
+function connectToDatabase() {
+  const mysql = require('mysql');
+  const connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'password',
+      database: 'capstone'
+  });
+
+  connection.connect(function(err) {
+      if (err) throw err;
+      console.log("Connected to database!");
+  });
+
+  // Query to retrieve users from the database
+  const query = 'SELECT * FROM users';
+  connection.query(query, function(err, result) {
+      if (err) throw err;
+      // Store the retrieved users in the users variable
+      users = result.map(user => {
+          return { key: user.id, label: user.name };
+      });
+      // Call the getUsersFromDb function to initialize the Gantt chart
+      getUsersFromDb();
+  });
+
+  connection.end();
+}
+
+connectToDatabase();

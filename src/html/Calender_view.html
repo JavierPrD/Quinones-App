@@ -13,6 +13,14 @@
     <link href="../components/common/sidebar/sidebar.css" rel="stylesheet">
     <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
     <link href="../css/calender.css" rel="stylesheet">
+
+    <!-- Load DHTMLX Gantt -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css">
+    <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
+
+    <!-- Load DHTMLX Scheduler -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.dhtmlx.com/scheduler/edge/dhtmlxscheduler.css">
+    <script src="https://cdn.dhtmlx.com/scheduler/edge/dhtmlxscheduler.js"></script>
 </head>
 
 
@@ -160,7 +168,24 @@
                 <div class="calender-rightFold">
                     <div class="rightFold">
                         <div class="fold-container">
-                            <h2>Gantt-Chart</h2>
+                            <h2>Calender</h2>
+                            <!-- HTML code for the Scheduler -->
+                            <div id="scheduler_here" class="dhx_cal_container" style="width: 100%; height: 700px;">
+                                <div class="dhx_cal_navline">
+                                    <div class="dhx_cal_prev_button">&nbsp;</div>
+                                    <div class="dhx_cal_next_button">&nbsp;</div>
+                                    <div class="dhx_cal_today_button"></div>
+                                    <div class="dhx_cal_date"></div>
+                                    <div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+                                    <div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+                                    <div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+                                </div>
+                                <div class="dhx_cal_header"></div>
+                                <div class="dhx_cal_data"></div>
+                            </div>
+
+                            <!-- HTML code for the Gantt chart -->
+                            <div id="gantt_here" style='width:100%; height:700px;'></div>
                         </div>
                     </div>
                 </div>
@@ -187,7 +212,34 @@
             }
 
         </script>
-        <script src="../renderer.js"></script>
+        <script>
+            
+            scheduler.init('scheduler_here', new Date(), 'week');
+            scheduler.load("../json_data/data.json");
+            // Listen for changes in the Gantt chart and update the Scheduler
+            gantt.attachEvent("onAfterTaskUpdate", function (id, task) {
+                scheduler.updateEvent(id);
+            });
+            gantt.attachEvent("onAfterTaskAdd", function (id, task) {
+                scheduler.addEvent(task);
+            });
+            gantt.attachEvent("onAfterTaskDelete", function (id, task) {
+                scheduler.deleteEvent(id);
+            });
+
+            // Listen for changes in the Scheduler and update the Gantt chart
+            scheduler.attachEvent("onEventChanged", function (id, event) {
+                gantt.updateTask(id);
+            });
+            scheduler.attachEvent("onEventAdded", function (id, event) {
+                gantt.addTask(event);
+            });
+            scheduler.attachEvent("onEventDeleted", function (id, event) {
+                gantt.deleteTask(id);
+            });
+
+
+        </script>
 </body>
 
 </html>
