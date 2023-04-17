@@ -1,45 +1,22 @@
-const { ipcRenderer } = require('electron');
-const gantt = require('dhtmlx-gantt');
 const mysql = require('mysql');
+const gantt = require('dhtmlx-gantt');
 
+// Connect to MySQL database
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'password',
-  database: 'capstone',
+  database: 'capstone'
 });
 
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL database:', err.stack);
-    return;
-  }
+// Retrieve Gantt chart data from MySQL database
+connection.query('SELECT * FROM gantt-tasks', (error, results) => {
+  if (error) throw error;
+  
+  // Parse Gantt chart data using dhtmlx-gantt API
+  gantt.parse({data: results});
 
-  console.log('Connected to MySQL database');
-});
-
-gantt.config.xml_date = '%Y-%m-%d %H:%i:%s';
-gantt.init('gantt_here');
-
-ipcRenderer.on('load-data', (event, args) => {
-  connection.query('SELECT * FROM gantt-tasks', (error, results, fields) => {
-    if (error) {
-      console.error('Error loading data from MySQL database:', error.stack);
-      return;
-    }
-
-    const tasks = [];
-
-    results.forEach((result) => {
-      tasks.push({
-        id: result.id,
-        text: result.text,
-        start_date: result.start_date,
-        end_date: result.end_date,
-        progress: result.progress,
-      });
-    });
-
-    gantt.parse({ data: tasks });
-  });
+  // Initialize and render Gantt chart
+  gantt.init('gantt_here');
+  gantt.render();
 });

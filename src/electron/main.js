@@ -8,8 +8,10 @@ const isDev = process.env.NODE_ENV !== "production";
 const express = require('express');
 
 
+
  //--------------------------------------------------
  //Gantt-Chart with DHTMLX Node.js
+ 
 
 
 //--------------------------------------------------
@@ -211,6 +213,7 @@ app.whenReady().then(() => {
   });
 
   connection.connect();
+  
   ipcMain.on("get-data", (event) => {
     connection.query("SELECT * FROM user", (error, results) => {
       if (error) {
@@ -233,6 +236,9 @@ app.on("activate", function () {
     //createWindow();
   }
 });
+
+
+
 
 //------------------------------------------------------------------------
 //HTTP Server For Electron Application
