@@ -10,11 +10,7 @@ const express = require('express');
 
  //--------------------------------------------------
  //Gantt-Chart with DHTMLX Node.js
-const port = 1337;
-const exp = express();
-exp.listen(port, () =>{
-    console.log("Server is running on port "+port+"...");
-});
+
 
 //--------------------------------------------------
 
