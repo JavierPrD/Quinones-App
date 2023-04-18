@@ -47,7 +47,7 @@ function dbDisplayToApp(){
     if (err) throw err
     console.log('Connected to MySQL database!')
 
-    connection.query('SELECT * FROM user', function (err, rows, fields) {
+    connection.query('SELECT * FROM users', function (err, rows, fields) {
       if (err) throw err
 
       console.log('Table data:', rows)

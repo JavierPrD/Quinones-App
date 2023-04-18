@@ -13,7 +13,8 @@
     <link href="../components/common/sidebar/sidebar.css" rel="stylesheet">
     <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
     <link href="../css/home.css" rel="stylesheet">
-    
+    <link href="../css/progressbar.css" rel="stylesheet">
+
 
 
 
@@ -252,8 +253,38 @@
                                     <div class="row">
                                         <label>Project Bar</label>
                                     </div>
-                                    <div class="column">
-                                        
+                                    <div class="progress-bar-column">
+                                        <div class="progress-container">
+                                            <div class="circular-progress">
+                                                <span class="progress-value">0%</span>
+                                            </div>
+                                            <span class="text">Phase 1</span>
+                                        </div>
+                                        <div class="progress-container">
+                                            <div class="circular-progress">
+                                                <span class="progress-value">0%</span>
+                                            </div>
+                                            <span class="text">Phase 2</span>
+                                        </div>
+                                        <div class="progress-container">
+                                            <div class="circular-progress">
+                                                <span class="progress-value">0%</span>
+                                            </div>
+                                            <span class="text">Phase 3</span>
+                                        </div>
+                                        <div class="progress-container">
+                                            <div class="circular-progress">
+                                                <span class="progress-value">0%</span>
+                                            </div>
+                                            <span class="text">Phase 4</span>
+                                        </div>
+                                        <div class="progress-container">
+                                            <div class="circular-progress">
+                                                <span class="progress-value">0%</span>
+                                            </div>
+                                            <span class="text">Phase 5</span>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -262,30 +293,13 @@
                                 <div class="project-roster-container">
                                     <label>Project Roster</label>
                                     <div class="roster-list" id="rosterList">
-                                        <div class="member-card">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
-                                                class="item-avatar"> <!--Uses home.js to auto size profile picture-->
+                                        <div  id="member-card">
                                             <div class="member-info">
-                                                <label class="member-title">John Doe</label>
-                                                <label class="member-subtitle">Worker</label>
+                                                <label class="member-title" id="member-title"></label>
+                                                <label class="member-subtitle"id="member-subtitle"></label>
                                             </div>
                                         </div>
-                                        <div class="member-card">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
-                                                class="item-avatar">
-                                            <div class="member-info">
-                                                <label class="member-title">Jane Doe</label>
-                                                <label class="member-subtitle">Admin</label>
-                                            </div>
-                                        </div>
-                                        <div class="member-card">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
-                                                class="item-avatar">
-                                            <div class="member-info">
-                                                <label class="member-title">Jack Doe</label>
-                                                <label class="member-subtitle">Manager</label>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -315,8 +329,9 @@
         }
 
     </script>
-    <script src="../renderer/homepage.js"></script>
+    <script src="../renderer/roster.js"></script>
     <script src="../js/logout.js"></script>
+    <script src="../js/progressbar.js"></script>
 </body>
 
 </html>

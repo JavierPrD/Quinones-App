@@ -43,7 +43,7 @@
   height: 100%;
   width: 150%;
   background-color: #ebebeb;
-  
+
   overflow: hidden;
 }
 
@@ -87,7 +87,7 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  margin-left: -60px;
+  /*margin-left: -60px;*/
   overflow: hidden;
 }
 
@@ -148,4 +148,10 @@
 
 .item-avatar {
   height: 32px;
+}
+
+.progress-bar-column {
+  display: flex;
+  padding: 10px;
+  justify-content: space-evenly;
 }

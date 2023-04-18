@@ -204,7 +204,7 @@ app.whenReady().then(() => {
   connection.connect();
 
   ipcMain.on("get-data", (event) => {
-    connection.query("SELECT * FROM user", (error, results) => {
+    connection.query("SELECT * FROM users", (error, results) => {
       if (error) {
         throw error;
       }
@@ -254,7 +254,7 @@ ipcMain.on("message-from-renderer", (event, arg) => {
 ipcMain.on("register-user", (event, userData) => {
   const { firstName, lastName, username, email, password, role } = userData;
 
-  const query = `INSERT INTO user (firstName, lastName, username, email, password, role) VALUES (?, ?, ?, ?, ?, ?)`;
+  const query = `INSERT INTO users (firstName, lastName, username, email, password, role) VALUES (?, ?, ?, ?, ?, ?)`;
   const values = [firstName, lastName, username, email, password, role];
 
   connection.query(query, values, (err, result) => {
@@ -271,7 +271,7 @@ ipcMain.on("register-user", (event, userData) => {
 ipcMain.on("verify-user", (event, userData) => {
   const { username, password } = userData;
 
-  const query = `SELECT * FROM user WHERE username = ? AND password = ?`;
+  const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
   const values = [username, password];
 
   connection.query(query, values, (err, result) => {

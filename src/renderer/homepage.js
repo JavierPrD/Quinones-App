@@ -16,7 +16,7 @@ connection.connect((err) => {
 });
 
 // define a SQL query to get the user names and roles from the database
-const query = "SELECT username, role FROM user";
+const query = "SELECT username, role FROM users";
 
 // execute the SQL query and get the results
 connection.query(query, (err, results) => {
