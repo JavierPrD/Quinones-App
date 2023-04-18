@@ -14,6 +14,11 @@
     <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
     <link href="../css/chat.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    
+    
+
 </head>
 
 
@@ -176,6 +181,37 @@
                     </div>
 
                 </div>
+                <div class="chat-feature-container ">
+                    <header class="chat-feature-header">
+                        <h1></i>Chat</h1>
+                        <a id="join-btn" class="btn">Join Room</a>
+                        <a id="leave-btn" class="btn">Leave Room</a>
+                    </header>
+                    <main class="chat-feature-main">
+                        <div class="chat-feature-sidebar">
+                            <h3><i class="fas fa-comments"></i> Room Name:</h3>
+                            <h2 id="room-name">
+                                General
+                    
+                            </h2>
+                            <h3><i class="fas fa-users"></i> Users</h3>
+                            <ul id="users">
+                                JavierPrD
+                            </ul>
+                        </div>
+                        <div class="chat-feature-messages"></div>
+                    </main>
+                    <div class="chat-feature-form-container">
+                        <form id="chat-feature-form">
+                            <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" />
+                            <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+                        </form>
+                    </div>
+                </div>
+                
+
+
+                <!--
                 <div class="chat-leftFold">
                     <div class="leftFold">
                         <div class="leftFold-menu">
@@ -185,9 +221,9 @@
                                 <i class="bi bi-search"></i>
                             </div>
                         </div>
-                        <!--Chat List-->
+                        --Chat List--
                         <div class="leftFold-chatList">
-                            <!--Active Message-->
+                            --Active Message--
                             <div class="block active">
                                 <div class="imgbx">
                                     <img src="" class="cover">
@@ -203,7 +239,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--Unread Message-->
+                            --Unread Message--
                             <div class="block unread">
                                 <div class="imgbx">
                                     <img src="" class="cover">
@@ -220,7 +256,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--End of Chat List-->
+                        --End of Chat List--
                     </div>
                 </div>
                 <div class="chat-rightFold">
@@ -237,8 +273,8 @@
                                 <i class="bi bi-three-dots-vertical"></i>
                             </ul>
                         </div>
-                        <!--<div class="fold-container"></div>-->
-                        <!--Chatbox-->
+                        --<div class="fold-container"></div>--
+                        --Chatbox--
                         <div class="chatbox">
                             <div class="message my_message">
                                 <p>Hi<br><span>12:26</span></p>
@@ -250,17 +286,20 @@
                                 <p>Hi<br><span>12:26</span></p>
                             </div>
                         </div>
-                        <!--End of Chatbox-->
-                        <!--Chat Input-->
+                        --End of Chatbox--
+                        --Chat Input--
                         <div class="chatbox_input">
                             <i class="bi bi-emoji-smile"></i>
                             <i class="bi bi-paperclip"></i>
                             <input type="text" placeholder="Type a message">
                             <i class="bi bi-mic-fill"></i>
                         </div>
-                        <!--End of Chat Input-->
+                        --End of Chat Input--
                     </div>
-                </div><!-----End of Right Fold -->
+                </div>-----End of Right Fold --
+
+            -->
+
             </div><!-----End of Body---->
         </div><!-----End of Container---->
         <script>
@@ -283,7 +322,9 @@
             }
 
         </script>
-        <script src="../renderer.js"></script>
+        <script src="../js/calls.js"></script>
+        
+        
 </body>
 
 </html>

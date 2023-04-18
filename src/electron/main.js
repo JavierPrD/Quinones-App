@@ -5,30 +5,20 @@ const http = require("http");
 const path = require("path");
 const mysql = require("mysql");
 const isDev = process.env.NODE_ENV !== "production";
-const express = require('express');
-
-
-
- //--------------------------------------------------
- //Gantt-Chart with DHTMLX Node.js
- 
-
+const express = require("express");
+const socketio = require("socket.io");
+const formatMessage = require("../chat-feature/utils/messages");
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers,
+} = require("../chat-feature/utils/users");
 
 //--------------------------------------------------
+//Gantt-Chart with DHTMLX Node.js
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+//--------------------------------------------------
 
 //Displays database content onto electron application front-end
 //const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
@@ -190,7 +180,6 @@ function createGantt() {
   });
   if (isDev) {
     ganttWindow.webContents.openDevTools();
-    
   }
   ganttWindow.loadFile("./src/html/Gantt-Chart_view.html");
   //ganttWindow.loadFile("./dhx-gantt-app/public/index.html");
@@ -213,7 +202,7 @@ app.whenReady().then(() => {
   });
 
   connection.connect();
-  
+
   ipcMain.on("get-data", (event) => {
     connection.query("SELECT * FROM user", (error, results) => {
       if (error) {
@@ -237,42 +226,8 @@ app.on("activate", function () {
   }
 });
 
-
-
-
 //------------------------------------------------------------------------
-//HTTP Server For Electron Application
-//Server to expose endpoints for the application to interact with
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/plain");
-  res.end("Local Host display following: Hello, World!");
-});
 
-server.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
-
-const options = {
-  hostname: "localhost",
-  port: 3000,
-  path: "/api/data",
-  method: "GET",
-};
-
-const req = http.request(options, (res) => {
-  console.log(`statusCode: ${res.statusCode}`);
-
-  res.on("data", (data) => {
-    console.log(data.toString());
-  });
-});
-
-req.on("error", (error) => {
-  console.error(error);
-});
-
-req.end();
 //----------------------------------------------------------------------------
 //MySQL Database Connection
 const connection = mysql.createConnection({
@@ -355,3 +310,91 @@ ipcMain.on("verify-user", (event, userData) => {
 ipcMain.on("display-text", (event, text) => {
   mainWindow.webContents.send("display-text", text);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Chat Room front-end javascript commands do not delete */
+//const express = require("express");
+
+
+
+const ap = express();
+const server = http.createServer(ap);
+const io = socketio(server);
+
+//Set static folder
+ap.use(express.static(path.join(__dirname, "public")));
+
+const botName = "Quinones Bot";
+
+//run when client connects
+io.on("connection", (socket) => {
+  socket.on("joinRoom", ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+    socket.join(user.room);
+
+    //Welcome current user
+    socket.emit("message", formatMessage(botName, "Welcome to Quinones Chat"));
+
+    //Broadcast when a user connects
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        "message",
+        formatMessage(botName, `${user.username} has joined the chat`)
+      );
+
+    //Send users and room info
+    io.to(user.room).emit("roomUsers", {
+      room: user.room,
+      users: getRoomUsers(user.room),
+    });
+  });
+
+  //Listen for chatMessage
+  socket.on("chatMessage", (msg) => {
+    const user = getCurrentUser(socket.id);
+    io.to(user.room).emit("message", formatMessage(user.username, msg));
+  });
+
+  //Runs when client disconnects
+  socket.on("disconnect", () => {
+    const user = userLeave(socket.id);
+    if (user) {
+      io.to(user.room).emit(
+        "message",
+        formatMessage(botName, `${user.username} has left the chat`)
+      );
+      //Send users and room info
+      io.to(user.room).emit("roomUsers", {
+        room: user.room,
+        users: getRoomUsers(user.room),
+      });
+    }
+  });
+});
+
+const PORT = 3000 || process.env.PORT;
+
+server.listen(PORT, () => console.log(`Server running on ${PORT}`));
+
+//---------------------------------------------------------

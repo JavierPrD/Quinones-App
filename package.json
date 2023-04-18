@@ -2,8 +2,8 @@
   "name": "quinones-app",
   "version": "1.0.0",
   "description": "",
+  "main": "./src/electron/main.js",
   
-  "main": "./chat-feature/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
