@@ -7,13 +7,13 @@ const mysql = require("mysql");
 const isDev = process.env.NODE_ENV !== "production";
 const express = require("express");
 const socketio = require("socket.io");
-const formatMessage = require("../chat-feature/utils/messages");
+const formatMessage = require("./js/utils/messages");
 const {
   userJoin,
   getCurrentUser,
   userLeave,
   getRoomUsers,
-} = require("../chat-feature/utils/users");
+} = require("./js/utils//users");
 
 //--------------------------------------------------
 //Gantt-Chart with DHTMLX Node.js
@@ -21,7 +21,7 @@ const {
 //--------------------------------------------------
 
 //Displays database content onto electron application front-end
-//const { dbDisplayToApp } = require("../renderer/dbDisplayToApp");
+//const { dbDisplayToApp } = require("./renderer/dbDisplayToApp");
 //dbDisplayToApp();
 
 function createMain() {
@@ -132,7 +132,7 @@ function createProfile() {
   if (isDev) {
     profileWindow.webContents.openDevTools();
   }
-  profileWindow.loadFile(path.join(__dirname, "../html/UserProfile_view.html"));
+  profileWindow.loadFile(path.join(__dirname, "src/html/UserProfile_view.html"));
   // When the window is ready, send a message to the userprofile.js process to retrieve the user's information
 }
 
@@ -155,7 +155,7 @@ function createFinal() {
     },
   });
 
-  finalWindow.loadFile("./src/html/Sign-up.html");
+  finalWindow.loadFile("src/html/Sign-up.html");
 
   finalWindow.on("closed", function () {
     finalWindow = null;
@@ -181,7 +181,7 @@ function createGantt() {
   if (isDev) {
     ganttWindow.webContents.openDevTools();
   }
-  ganttWindow.loadFile("./src/html/Gantt-Chart_view.html");
+  ganttWindow.loadFile("src/html/Gantt-Chart_view.html");
   //ganttWindow.loadFile("./dhx-gantt-app/public/index.html");
 }
 
