@@ -15,11 +15,11 @@
     <link href="../css/task.css" rel="stylesheet">
 
     <!--include bootstrap css-->
-   
 
-   
 
-    
+
+
+
 </head>
 
 
@@ -53,19 +53,19 @@
                                         <!--<hr>-->
                                         <a href="#" class="sub-menu-link">
                                             <p>Edit Profile</p>
-                                            
+
                                         </a>
                                         <a href="#" class="sub-menu-link">
                                             <p>Settings & Privacy</p>
-                                            
+
                                         </a>
                                         <a href="#" class="sub-menu-link">
                                             <p>Help & Support</p>
-                                            
+
                                         </a>
                                         <a href="#" class="sub-menu-link">
                                             <p>Logout</p>
-                                            
+
                                         </a>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                 <div class="task-sidebar">
                     <div class="sidebar">
                         <div class="sidebar-top">
-                           
+
 
                             <div class="sidebar-option">
                                 <a href="Home_view.html">
@@ -94,7 +94,7 @@
                                 </a>
                                 <label class="sidebar-label">Home</label>
                             </div>
-                            
+
                             <!--
                             <div class="sidebar-option">
                                 <a href="Groups_view.html">
@@ -171,13 +171,13 @@
                             </div>
 
                             <div>
-                               
+
                             </div>
-                            
+
                         </div>
                         <!---------------------------------------------------------------------------------------------->
                         <div class="sidebar-bottom">
-                            
+
                             <div class="sidebar-option">
                                 <a href="Help_view.html">
                                     <div class="sidebar-icon">
@@ -211,29 +211,22 @@
                         <table class="task-table">
                             <!--Menu Bar Should be Added-->
                             <div class="menu-container">
-                                
+
                                 <div class="menu-option option-active"><a onclick="tab(0)">All</a></div>
                                 <div class="menu-option"><a onclick="tab(1)">Processing</a></div>
                                 <div class="menu-option"><a onclick="tab(2)">Pending</a></div>
                                 <div class="menu-option"><a onclick="tab(3)">Completed</a></div>
 
-                                
+
                             </div>
-                            <tr>
-                                <th>Task</th>
-                                <th>Phase</th>
-                                <th>Status</th>
-                                <th>Due Date</th>
-                                <th>Assigned To</th>
-                                <th>Options</th>
-                            </tr>
+                            
 
                             <thead>
                                 <tr>
                                     <th>Task</th>
                                     <th>Name</th>
                                     <th>Modified</th>
-                                    <th>Modified By</th>
+                                    <th>Assigned To</th>
                                     <th>Options</th>
                                 </tr>
                             </thead>
@@ -261,12 +254,12 @@
                                 </tr>
                             </tbody>
 
-44
+
 
                         </table>
 
 
-                        
+
 
                         <!--Modal to add Project and task-->
                         <div class="modal fade" id="addTaskModal" tabindex="-1">
@@ -315,7 +308,7 @@
 
 
 
-                        
+
 
                     </div>
 
@@ -325,7 +318,7 @@
         <script>
             const tabBtn = document.querySelectorAll(".tab")
             const tab = document.querySelectorAll(".tabShow")
-        
+
             function tabs(panelIndex) {
                 tab.forEach(function (node) {
                     node.style.display = "none";
@@ -334,15 +327,15 @@
             }
             tabs(0);
         </script>
-        
+
         <script>
             let subMenu = document.getElementById("subMenu");
             function toggleMenu() {
                 subMenu.classList.toggle("open-menu");
             }
-        
+
         </script>
-        <script src="../renderer.js"></script>
+        
 </body>
 
 </html>
