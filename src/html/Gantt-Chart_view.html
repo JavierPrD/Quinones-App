@@ -181,22 +181,30 @@
                             <div id="gantt_here" style="width: 99%; height: 85%;"></div>
                             <script>
 
-                                function getUser(user_id) {
-                                    for (var i = 0; i < users.length; i++) {
-                                        if (users[i].key == user_id) {
-                                            return users[i].label;
-                                        }
-                                    }
-                                    return "";
-                                }
+const mysql = require('mysql');
 
-                                // Array of owners for options(in the lightbox)
-                                var users = [
-                                    { key: '0', label: "" },
-                                    { key: '1', label: "Ozzy Osbourne" },
-                                    { key: '2', label: "Bonnie Tyler" },
-                                    { key: '3', label: "Gene Pitney" },
-                                ];
+// Connection details for MySQL database
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'capstone'
+});
+
+// Connect to MySQL database
+connection.connect();
+
+                                 // Retrieve user IDs from MySQL database
+        const users = [];
+        connection.query('SELECT id, name FROM users', (error, results, fields) => {
+          if (error) throw error;
+          results.forEach((result) => {
+            users.push({
+              key: result.id,
+              label: result.name
+            });
+          });
+        });
 
                                 gantt.config.columns = [
                                     { name: "text", label: "Task name", width: "*", tree: true },
