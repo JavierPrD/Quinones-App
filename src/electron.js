@@ -185,13 +185,30 @@ function createGantt() {
   //ganttWindow.loadFile("./dhx-gantt-app/public/index.html");
 }
 
+function createEditTaskWindow(taskId) {
+  const editTaskWindow = new BrowserWindow({
+    width: 400,
+    height: 400,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  editTaskWindow.loadFile('src/html/pop-up/edit-task.html');
+
+  // Pass the task ID to the edit task window
+  editTaskWindow.webContents.on('did-finish-load', () => {
+    editTaskWindow.webContents.send('task-id', taskId);
+  });
+}
+
 //------------------------------------------------------------------------
 app.whenReady().then(() => {
   createMain();
   //createTest();
   //createProfile();
   createFinal();
-  //createGantt();
+  createGantt();
 
   //Require to render database table into user profile page do not
   const connection = mysql.createConnection({
@@ -212,6 +229,20 @@ app.whenReady().then(() => {
       event.reply("data", results);
     });
   });
+
+  ipcMain.on("get-task", (event) => {
+    connection.query("SELECT * FROM task", (error, results) => {
+      if (error) {
+        throw error;
+      }
+
+      event.reply("task", results);
+    });
+  });
+
+
+
+
 });
 
 app.on("window-all-closed", function () {

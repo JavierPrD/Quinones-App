@@ -74,11 +74,23 @@ nav {
   width: 100%;
   margin-bottom: 1rem;
   color: #212529;
+  border: 2px solid #333;
+  
 }
 
-.task-table td,
+
+/* Style table cells */
+.task-table td{
+  padding: 0.75em;
+  vertical-align: top;
+  border-right: 2px solid #333;
+  
+  
+}
 .task-table th {
   padding: 0.75em;
   vertical-align: top;
-  border-top: 1px solid black;
+  border-bottom: 2px solid #333;
+  border-right: 2px solid #333;
+  
 }

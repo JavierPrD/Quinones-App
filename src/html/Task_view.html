@@ -193,129 +193,58 @@
                     <div class="rightFold">
 
                         <!--Task Management Container-->
-                        <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
-                            <!--
-                            Button to add task
-                            <div class="row" style="margin-bottom: 50px;">
-                                <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#addTaskModal">
-                                        Add Task
-                                    </button>
-                                </div>
-                            </div>
-                            -->
-
-
-                        </div>
-                        <table class="task-table">
+                        <div class="container" style="margin-top: 50px; margin-bottom: 50px;"></div>
+                        <table class="task-table" id="task-table">
                             <!--Menu Bar Should be Added-->
                             <div class="menu-container">
-
                                 <div class="menu-option option-active"><a onclick="tab(0)">All</a></div>
                                 <div class="menu-option"><a onclick="tab(1)">Processing</a></div>
                                 <div class="menu-option"><a onclick="tab(2)">Pending</a></div>
                                 <div class="menu-option"><a onclick="tab(3)">Completed</a></div>
-                                
-
-
                             </div>
-                            
-
                             <thead>
                                 <tr>
-                                    <th>Task</th>
                                     <th>Name</th>
-                                    <th>Modified</th>
+                                    <th>Phase</th>
+                                    <th>Due Date</th>
                                     <th>Assigned To</th>
-                                    <th>Options</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Document</td>
-                                    <td>Project Plan</td>
-                                    <td>2023-04-10</td>
-                                    <td>John Doe</td>
-                                    <td><button>Edit</button><button>Delete</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Image</td>
-                                    <td>Logo.png</td>
-                                    <td>2023-04-11</td>
-                                    <td>Jane Smith</td>
-                                    <td><button>Edit</button><button>Delete</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Spreadsheet</td>
-                                    <td>Budget.xlsx</td>
-                                    <td>2023-04-12</td>
-                                    <td>Mark Johnson</td>
-                                    <td><button>Edit</button><button>Delete</button></td>
-                                </tr>
-                            </tbody>
-
-
-
                         </table>
-                        
+                        <script src="../renderer/task-table.js"></script>
+                        <script>
+                            function handleDeleteButtonClick(taskId) {
+                                // Handle button click for the specified task ID
+                                console.log("Button clicked for task ID:", taskId);
+                            }
 
+                            function handleEditButtonClick(taskId) {
+                                // Get the task details from the database using the taskId
+                                const task = getTaskDetailsFromDatabase(taskId);
 
+                                // Create a pop-up modal with the task details
+                                const modal = createEditTaskModal(task);
 
-                        <!--Modal to add Project and task-->
-                        <div class="modal fade" id="addTaskModal" tabindex="-1">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Add Task</h5>
-                                        <button class="close" type="button" data-dismiss="modal">x</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="post" onsubmit="return taskObj.addTask(this);"
-                                            id="form-task-hour-calculator">
-                                            <!--select project from already created-->
-                                            <div class="form-group">
-                                                <label>Project</label>
-                                                <select name="project" id="add-task-project" class="form-control"
-                                                    required></select>
-                                            </div>
-                                            <!--Create New Project-->
-                                            <div class="form-group">
-                                                <label>New Project</label>
-                                                <input type="text" name="new_project" id="add-project"
-                                                    class="form-control" placeholder="Project Name">
-                                                <button type="button" onclick="taskObj.addProject();"
-                                                    class="btn btn-primary" style="margin-top: 10px;">Add
-                                                    Project</button>
-                                            </div>
-                                            <!--Enter Task-->
-                                            <div class="form-group">
-                                                <label>Task</label>
-                                                <input type="text" name="task" class="form-control"
-                                                    placeholder="What are you going to do?" required>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!--Form Submit Button-->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" form="form-task-hour-calculator"
-                                            class="btn btn-primary">Add Task</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                // When the user clicks the "Save" button in the modal
+                                modal.onSave(() => {
+                                    // Get the updated task details from the modal
+                                    const updatedTask = modal.getTaskDetails();
 
+                                    // Update the task details in the database
+                                    updateTaskDetailsInDatabase(updatedTask);
 
-
-
-
+                                    // Close the modal
+                                    modal.close();
+                                });
+                            }
+                        </script>
                     </div>
-
                 </div>
             </div>
         </div>
+
+        
         <script>
             const tabBtn = document.querySelectorAll(".tab")
             const tab = document.querySelectorAll(".tabShow")
@@ -336,7 +265,7 @@
             }
 
         </script>
-        
+
 </body>
 
 </html>
