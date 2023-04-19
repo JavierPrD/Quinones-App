@@ -187,11 +187,11 @@ function createGantt() {
 
 //------------------------------------------------------------------------
 app.whenReady().then(() => {
-  //createMain();
+  createMain();
   //createTest();
   //createProfile();
-  //createFinal();
-  createGantt();
+  createFinal();
+  //createGantt();
 
   //Require to render database table into user profile page do not
   const connection = mysql.createConnection({
