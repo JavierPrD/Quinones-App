@@ -8,22 +8,13 @@
     <link rel="icon" href="./favicon.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>Gantt-Chart</title>
-
     <link href="../components/common/header/header.css" rel="stylesheet">
     <link href="../components/common/sidebar/sidebar.css" rel="stylesheet">
     <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
     <link href="../css/gantt.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css">
-
     <script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
-
-
-
 </head>
-
-
-<!---------------------------------------------------------------------------------------------->
 
 <body style="display: block; margin: auto;">
     <div id="root">
@@ -181,39 +172,52 @@
                             <div id="gantt_here" style="width: 99%; height: 85%;"></div>
                             <script>
 
-const mysql = require('mysql');
+                                const mysql = require('mysql');
 
-// Connection details for MySQL database
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'capstone'
-});
+                                // Connection details for MySQL database
+                                const connection = mysql.createConnection({
+                                    host: 'localhost',
+                                    user: 'root',
+                                    password: 'password',
+                                    database: 'capstone'
+                                });
 
-// Connect to MySQL database
-connection.connect();
+                                // Connect to MySQL database
+                                connection.connect();
 
-                                 // Retrieve user IDs from MySQL database
-        const users = [];
-        connection.query('SELECT id, name FROM users', (error, results, fields) => {
-          if (error) throw error;
-          results.forEach((result) => {
-            users.push({
-              key: result.id,
-              label: result.name
-            });
-          });
-        });
+                                // Retrieve user IDs from MySQL database
+                                const users = [];
+                                connection.query('SELECT id, FirstName FROM users', (error, results, fields) => {
+                                    if (error) throw error;
+                                    results.forEach((result) => {
+                                        users.push({
+                                            key: result.id,
+                                            label: result.FirstName
+                                        });
+                                    });
+                                });
+
+                                // Function to get the user's first name based on the user ID
+                                function getUserFirstName(user_id) {
+                                    for (var i = 0; i < users.length; i++) {
+                                        if (users[i].key == user_id) {
+                                            return users[i].label;
+                                        }
+                                    }
+                                    return "";
+                                }
 
                                 gantt.config.columns = [
-                                    { name: "text", label: "Task name", width: "*", tree: true },
+                                    //{ name: "text", label: "Task Name", width: "*", tree: true },
+                                    { name: "text", label: "Task Name", width: "*", align: "center" },
+                                    { name: "text", label: "Phase", width: "*", align: "center" },
                                     { name: "start_date", label: "Start time", align: "center" },
+                                    { name: "due_date", label: "Due Date", align: "center" },
                                     { name: "duration", label: "Duration", align: "center" },
                                     // Owners column
                                     {
-                                        name: "user_id", label: "User", template: function (obj) {
-                                            return getUser(obj.user_id);
+                                        name: "user_id", label: "Assign To", align: "center", template: function (obj) {
+                                            return getUserFirstName(obj.user_id);
                                         }
                                     },
                                     { name: "add", label: "", width: 44 }
@@ -222,42 +226,29 @@ connection.connect();
                                 // Configuring lightbox
                                 gantt.config.lightbox.sections = [
                                     // Owners section, will map to owner_id
-                                    { name: "users", height: 22, map_to: "user_id", type: "select", options: users },
+                                    {
+                                        name: "users", height: 22, map_to: "user_id", type: "select", options: users, onchange: function (task, value) {
+                                            task.user_id = value;
+                                            task.user = getUserFirstName(value);
+                                            //gantt.updateTask(task.id);
+                                        }
+                                    },
                                     { name: "description", height: 70, map_to: "text", type: "textarea", focus: true },
                                     { name: "time", height: 72, map_to: "auto", type: "duration" }
                                 ]
-                                gantt.locale.labels.section_users = "Users";
+                                gantt.locale.labels.section_users = "User";
                                 gantt.init("gantt_here");
                             </script>
-
-
                         </div>
                     </div>
                 </div><!-----End of Right Fold -->
-
             </div>
-            <script>
-                const tabBtn = document.querySelectorAll(".tab")
-                const tab = document.querySelectorAll(".tabShow")
-
-                function tabs(panelIndex) {
-                    tab.forEach(function (node) {
-                        node.style.display = "none";
-                    });
-                    tab[panelIndex].style.display = "block";
-                }
-                tabs(0);
-            </script>
-
             <script>
                 let subMenu = document.getElementById("subMenu");
                 function toggleMenu() {
                     subMenu.classList.toggle("open-menu");
                 }
-
             </script>
-
-
 </body>
 
 </html>

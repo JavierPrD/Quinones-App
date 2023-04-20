@@ -7,8 +7,9 @@ ipcRenderer.on("task", (event, results) => {
   const headerRow = `
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Task Name</th>
         <th>Phase</th>
+        <th>Start Date</th>
         <th>Due Date</th>
         <th>Assigned To</th>
         <th>Action</th>
@@ -23,8 +24,9 @@ ipcRenderer.on("task", (event, results) => {
       <tr>
         <td>${row.name}</td>
         <td>${row.phase}</td>
+        <td>${row.startDate}</td>
         <td>${row.dueDate}</td>
-        <td>${row.assignedTo}</td>
+        <td>${row.FirstName} ${row.assignedTo}</td>
         <td>
         <button onclick="handleEditButtonClick(${taskId})">Edit</button>
         <button onclick="handleDeleteButtonClick(${taskId})">Delete</button>

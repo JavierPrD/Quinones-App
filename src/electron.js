@@ -231,7 +231,7 @@ app.whenReady().then(() => {
   });
 
   ipcMain.on("get-task", (event) => {
-    connection.query("SELECT * FROM task", (error, results) => {
+    connection.query("SELECT task.name, task.phase, task.startDate, task.dueDate, users.FirstName FROM task INNER JOIN users ON task.assignedTo = users.id", (error, results) => {
       if (error) {
         throw error;
       }
