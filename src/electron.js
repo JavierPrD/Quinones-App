@@ -132,7 +132,9 @@ function createProfile() {
   if (isDev) {
     profileWindow.webContents.openDevTools();
   }
-  profileWindow.loadFile(path.join(__dirname, "src/html/UserProfile_view.html"));
+  profileWindow.loadFile(
+    path.join(__dirname, "src/html/UserProfile_view.html")
+  );
   // When the window is ready, send a message to the userprofile.js process to retrieve the user's information
 }
 
@@ -190,24 +192,24 @@ function createEditTaskWindow(taskId) {
     width: 400,
     height: 400,
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   });
 
-  editTaskWindow.loadFile('src/html/pop-up/edit-task.html');
+  editTaskWindow.loadFile("src/html/pop-up/edit-task.html");
 
   // Pass the task ID to the edit task window
-  editTaskWindow.webContents.on('did-finish-load', () => {
-    editTaskWindow.webContents.send('task-id', taskId);
+  editTaskWindow.webContents.on("did-finish-load", () => {
+    editTaskWindow.webContents.send("task-id", taskId);
   });
 }
 
 //------------------------------------------------------------------------
 app.whenReady().then(() => {
-  createMain();
+  //createMain();
   //createTest();
   //createProfile();
-  createFinal();
+  //createFinal();
   createGantt();
 
   //Require to render database table into user profile page do not
@@ -231,18 +233,34 @@ app.whenReady().then(() => {
   });
 
   ipcMain.on("get-task", (event) => {
-    connection.query("SELECT task.name, task.phase, task.startDate, task.dueDate, users.FirstName FROM task INNER JOIN users ON task.assignedTo = users.id", (error, results) => {
-      if (error) {
-        throw error;
-      }
+    connection.query(
+      "SELECT task.name, task.phase, task.startDate, task.dueDate, users.FirstName FROM task INNER JOIN users ON task.assignedTo = users.id",
+      (error, results) => {
+        if (error) {
+          throw error;
+        }
 
-      event.reply("task", results);
+        event.reply("task", results);
+      }
+    );
+  });
+
+  // Listen for the getData event from the renderer process
+  ipcMain.on("getData", (event) => {
+    // Retrieve the data from the MySQL database
+    const sql = `SELECT * FROM task`;
+    connection.query(sql, function (error, results, fields) {
+      if (error) throw error;
+      // Send the data to the renderer process
+      event.sender.send("getData", results);
     });
   });
 
-
-
-
+  // Listen for the saveDataToLocalStorage event from the renderer process
+  ipcMain.on("saveDataToLocalStorage", (event, data) => {
+    // Save the data to local storage
+    localStorage.setItem("ganttData", JSON.stringify(data));
+  });
 });
 
 app.on("window-all-closed", function () {
@@ -342,31 +360,8 @@ ipcMain.on("display-text", (event, text) => {
   mainWindow.webContents.send("display-text", text);
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*Chat Room front-end javascript commands do not delete */
 //const express = require("express");
-
-
 
 const ap = express();
 const server = http.createServer(ap);

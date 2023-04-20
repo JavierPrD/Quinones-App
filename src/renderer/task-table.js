@@ -26,7 +26,7 @@ ipcRenderer.on("task", (event, results) => {
         <td>${row.phase}</td>
         <td>${row.startDate}</td>
         <td>${row.dueDate}</td>
-        <td>${row.FirstName} ${row.assignedTo}</td>
+        <td>${row.FirstName}</td>
         <td>
         <button onclick="handleEditButtonClick(${taskId})">Edit</button>
         <button onclick="handleDeleteButtonClick(${taskId})">Delete</button>
