@@ -21,25 +21,10 @@
       <button id="login-button" type="submit">Login</button>
       <!--<label>Don't Have an Account?</label><a href="Sign-up.html">Sign Here</a>-->
     </div>
+    <p id="login-message"></p>
+    <button id="protected-button">Access Protected Route</button>
   </form>
-
   <script src="../renderer/login.js"></script>
-  <!--
-  <script>
-    // Listen for login response from main process
-    ipcRenderer.on('verify-user-success', (event, userData) => {
-      //If the if statement says (!userdata) then the even if the credentials are correct it will not redirect the user to the home page.
-      // If userData is null, login failed
-      if (!userData) {
-        alert('Login failed. Please try again.');
-        return;
-      }
-      // Login succeeded, redirect to home page
-      window.location.href = "./Home_view.html";
-    });
-  </script>
-  -->
-
 </body>
 
 </html>

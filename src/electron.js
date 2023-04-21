@@ -4,6 +4,8 @@ const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
 const http = require("http");
 const path = require("path");
 const mysql = require("mysql");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const isDev = process.env.NODE_ENV !== "production";
 const express = require("express");
 const socketio = require("socket.io");
@@ -44,7 +46,7 @@ function createMain() {
   if (isDev) {
     loginWindow.webContents.openDevTools();
   }
-  loginWindow.loadFile("src/html/Login.html");
+  loginWindow.loadURL(path.join("file://", __dirname, "html/Login.html"));
   // When the window is ready, send a message to the userprofile.js process to retrieve the user's information
 
   // Create the homepage window
@@ -95,23 +97,6 @@ function createMain() {
     }
   });
 }
-
-/*function createTest() {
-  mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  });
-
-  mainWindow.loadFile("./src/html/test.html");
-
-  mainWindow.on("closed", function () {
-    mainWindow = null;
-  });
-}*/
 
 function createProfile() {
   const profileWindow = new BrowserWindow({
@@ -184,29 +169,11 @@ function createGantt() {
     ganttWindow.webContents.openDevTools();
   }
   ganttWindow.loadFile("src/html/Gantt-Chart_view.html");
-  //ganttWindow.loadFile("./dhx-gantt-app/public/index.html");
-}
-
-function createEditTaskWindow(taskId) {
-  const editTaskWindow = new BrowserWindow({
-    width: 400,
-    height: 400,
-    webPreferences: {
-      nodeIntegration: true,
-    },
-  });
-
-  editTaskWindow.loadFile("src/html/pop-up/edit-task.html");
-
-  // Pass the task ID to the edit task window
-  editTaskWindow.webContents.on("did-finish-load", () => {
-    editTaskWindow.webContents.send("task-id", taskId);
-  });
 }
 
 //------------------------------------------------------------------------
 app.whenReady().then(() => {
-  //createMain();
+  createMain();
   //createTest();
   //createProfile();
   //createFinal();
@@ -317,6 +284,7 @@ ipcMain.on("register-user", (event, userData) => {
   });
 });
 
+//----------------------------------------------------------------------------
 ipcMain.on("verify-user", (event, userData) => {
   const { username, password } = userData;
 
@@ -354,17 +322,66 @@ ipcMain.on("verify-user", (event, userData) => {
     }
   });
 });
-/*DO NOT TOUCH VERY IMPORTANT FOR ELECTRON APP AND DATABASE INTERACTION */
 
+/*
+// login event
+ipcMain.on("login", (event, args) => {
+  const { username, password } = args;
 
+  // query the MySQL database for the user with the given username/email
+  connection.query(
+    "SELECT * FROM users WHERE username = ? OR email = ?",
+    [username, username],
+    (error, results, fields) => {
+      if (error) {
+        return event.sender.send("login-error", { error: "Internal server error" });
+      }
 
+      // check if user exists
+      if (results.length === 0) {
+        return event.sender.send("login-error", { error: "Invalid credentials" });
+      }
 
+      // verify the password hash
+      const user = results[0];
+      bcrypt.compare(password, user.password_hash, (err, match) => {
+        if (err || !match) {
+          return event.sender.send("login-error", { error: "Invalid credentials" });
+        }
 
+        // create a JWT token
+        const token = jwt.sign(
+          { id: user.id, username: user.username, role: user.role },
+          "your_secret_key"
+        );
 
+        // store the JWT in a cookie or local storage
+        // ...
 
+        // send the token to the renderer process
+        event.sender.send("login-success", { token });
+      });
+    }
+  );
+});
+*/
 
+ipcMain.on("protected", (event, args) => {
+  const token = args;
 
+  // validate the JWT
+  jwt.verify(token, "your_secret_key", (err, decoded) => {
+    if (err) {
+      return event.sender.send("protected-error", { error: "Invalid token" });
+    }
 
+    // do something with the decoded user ID and role
+    // ...
+
+    event.sender.send("protected-success", { message: "Access granted" });
+  });
+});
+/*---------------------------------------------------------------------- */
 
 ipcMain.on("display-text", (event, text) => {
   mainWindow.webContents.send("display-text", text);
@@ -432,5 +449,3 @@ io.on("connection", (socket) => {
 const PORT = 3000 || process.env.PORT;
 
 server.listen(PORT, () => console.log(`Server running on ${PORT}`));
-
-//---------------------------------------------------------
