@@ -38,7 +38,7 @@ function getUserFirstName(user_id) {
 }
 
 const phases = [];
-connection.query("SELECT id, phase FROM task", (error, results, fields) => {
+connection.query("SELECT id, phase FROM task WHERE phase IN ('Planning', 'Design', 'Development', 'Testing', 'Deployment')", (error, results, fields) => {
   if (error) throw error;
   results.forEach((result) => {
     phases.push({
@@ -147,6 +147,7 @@ ipcRenderer.invoke("getData").then((data) => {
 function saveDataToLocalStorage() {
   const data = gantt.serialize();
   localStorage.setItem("ganttData", JSON.stringify(data));
+  console.log("Data is saved to local storage");
 }
 
 // Load data from local storage or MySQL database
@@ -157,6 +158,7 @@ function loadData() {
   } else {
     ipcRenderer.send('getData');
   }
+  console.log("Data has been loaded from local storage");
 }
 
 gantt.init("gantt_here");

@@ -356,6 +356,16 @@ ipcMain.on("verify-user", (event, userData) => {
 });
 /*DO NOT TOUCH VERY IMPORTANT FOR ELECTRON APP AND DATABASE INTERACTION */
 
+
+
+
+
+
+
+
+
+
+
 ipcMain.on("display-text", (event, text) => {
   mainWindow.webContents.send("display-text", text);
 });

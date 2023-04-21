@@ -191,17 +191,20 @@
                 </div>
                 <div class="task-rightFold"><!-----Beginning of Right Fold (Note uses components/calls/home.css)-->
                     <div class="rightFold">
+                        <h2>Task</h2>
 
                         <!--Task Management Container-->
                         <div class="container" style="margin-top: 50px; margin-bottom: 50px;"></div>
                         <table class="task-table" id="task-table">
                             <!--Menu Bar Should be Added-->
+                            <!--
                             <div class="menu-container">
                                 <div class="menu-option option-active"><a onclick="tab(0)">All</a></div>
                                 <div class="menu-option"><a onclick="tab(1)">Processing</a></div>
                                 <div class="menu-option"><a onclick="tab(2)">Pending</a></div>
                                 <div class="menu-option"><a onclick="tab(3)">Completed</a></div>
                             </div>
+                            -->
                             <thead>
                                 <tr>
                                     <th>Task Name</th>
@@ -245,18 +248,7 @@
         </div>
 
         
-        <script>
-            const tabBtn = document.querySelectorAll(".tab")
-            const tab = document.querySelectorAll(".tabShow")
-
-            function tabs(panelIndex) {
-                tab.forEach(function (node) {
-                    node.style.display = "none";
-                });
-                tab[panelIndex].style.display = "block";
-            }
-            tabs(0);
-        </script>
+      
 
         <script>
             let subMenu = document.getElementById("subMenu");
