@@ -285,24 +285,21 @@ ipcMain.on("register-user", (event, userData) => {
 });
 
 //----------------------------------------------------------------------------
-ipcMain.on("verify-user", (event, userData) => {
+ipcMain.on("login", (event, userData) => {
   const { username, password } = userData;
 
   const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
   const values = [username, password];
 
-  connection.query(query, values, (err, result) => {
+  connection.query(query, values, (err, result, results) => {
     if (err) {
       console.log(`Error verifying user data in database: ${err}`);
-      event.reply("verify-user-error", err);
+      event.reply("login-error", err);
       return;
     }
     if (result.length === 0) {
       console.log(`User not found or invalid credentials`);
-      event.reply(
-        "verify-user-failure",
-        "User not found or invalid credentials"
-      );
+      event.reply("login-failure", "User not found or invalid credentials");
     } else {
       // Update the loggedIn flag for the user
       connection.query(
@@ -316,9 +313,26 @@ ipcMain.on("verify-user", (event, userData) => {
           }
         }
       );
+      // verify the password hash
+      const user = results[0];
+      bcrypt.compare(password, user.password_hash, (err, match) => {
+        if (err || !match) {
+          return event.sender.send("login-error", {
+            error: "Invalid credentials",
+          });
+        }
+
+        // create a JWT token
+        const token = jwt.sign(
+          { id: user.id, username: user.username, role: user.role },
+          "your_secret_key"
+        );
+        event.sender.send("login-success", { token });
+      });
+
       event.reply("login-response", userData);
       console.log(`User verified successfully: ${result}`);
-      event.reply("verify-user-success", result);
+      event.reply("login-success", result);
     }
   });
 });
