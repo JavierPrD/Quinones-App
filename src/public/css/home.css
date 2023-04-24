@@ -1,0 +1,158 @@
+.home-body {
+  display: flex;
+  width: 100%;
+  flex: 1;
+  height: 96.3%;
+}
+.home-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.home-sidebar {
+  display: flex;
+  flex: 1;
+}
+
+.home-leftFold {
+  display: flex;
+  flex: 3;
+}
+
+.home-rightFold {
+  display: flex;
+  column-count: 3;
+  flex: 11;
+}
+.rightFold {
+  width: 100%;
+  height: 96.5%;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.fold-container {
+  height: 100%;
+  width: 100%;
+  column-count: 2;
+  column-gap: 20px;
+  /*column-rule: 1px solid #ccc;*/
+}
+
+.column-1 {
+  height: 100%;
+  width: 150%;
+  background-color: #ebebeb;
+
+  overflow: hidden;
+}
+
+.column-2 {
+  width: 50%;
+  background-color: #ebebeb;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  margin-left: auto;
+  border-radius: 20px;
+}
+
+.project-roster-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: auto;
+}
+.roster-list {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.member-card {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px;
+  min-width: 200px;
+  max-width: 300px;
+  flex-grow: 1;
+  column-count: 2;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /*margin-left: -60px;*/
+  overflow: hidden;
+}
+
+.member-title {
+  font-weight: 500;
+}
+
+.member-subtitle {
+  font-size: 12px;
+  color: #616161;
+}
+
+.content-container-1 {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background-color: #ccc;
+}
+.row {
+  display: flex;
+  justify-content: center;
+}
+.column {
+  display: flex;
+  padding: 10px;
+  justify-content: flex-start;
+}
+
+.column-list {
+  display: flex;
+  padding: 10px;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.content-container-2 {
+  width: 50%;
+  height: auto;
+  border-radius: 10px;
+  background-color: #ccc;
+  float: left;
+}
+.content-container-3 {
+  width: 50%;
+  height: auto;
+  border-radius: 10px;
+  background-color: #ccc;
+  float: left;
+}
+.content-container-4 {
+  width: 100%;
+  height: 25%;
+  border-radius: 10px;
+  background-color: #ccc;
+  float: left;
+}
+
+.item-avatar {
+  height: 32px;
+}
+
+.progress-bar-column {
+  display: flex;
+  padding: 10px;
+  justify-content: space-evenly;
+}

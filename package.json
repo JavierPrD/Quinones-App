@@ -2,13 +2,14 @@
   "name": "quinones-app",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/electron.js",
+  "main": "./src/electron-node-server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "dev": "nodemon server",
     "build": "webpack --mode production",
-    "gantt": "node ./src/electron/main.js"
+    "gantt": "node ./src/electron/main.js",
+    "node-server": "nodemon ./src/node-server.js "
   },
   "author": "Javier Prieto",
   "license": "ISC",

@@ -3,7 +3,9 @@
 <head>
   <title>User Registration</title>
   <link rel="stylesheet" href="../css/Sign_up.css">
+  <link rel="stylesheet" href="http://localhost:5000/css">
   <!--<form action="action_page.php" style="border:1px solid #ccc">-->
+  
 </head>
 
 <body>
@@ -12,10 +14,7 @@
   <div id="root"></div>
 
   <!--DO NOT DELETE KEEP -->
-  <form id="register-form"> <!--Links to register-form in register.js-->
-
-
-
+  <form action="/auth/register" id="register-form" method="POST"> <!--Links to register-form in register.js-->
 
     <!--DO NOT DELETE KEEP 
     <label for="id">ID:</label>
@@ -39,7 +38,8 @@
   <button id="send-message">Send Message to Main Process</button>
   <!--<script src="../renderer/register.js"></script>-->
   <!--Preload.js is needed in the electron main.js file for the register.js file to work.-->
-  <script src="../renderer/register.js"></script>
+  <script src="../renderer/register2.js"></script>
+
 
 </body>
 

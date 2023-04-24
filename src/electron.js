@@ -1,6 +1,6 @@
 //IMPORTANT DO NOT DELETE THE FOLLOWING ALLOWS FOR USERS IN THE ELECTRON APP
 //TO INPUT VALUES THAT ARE SAVED TO THE MYSQL DATABASE DO NOT MESS WITH IPCRENDERER, PRELOAD.JS, AND RENDERER,JS
-const { app, BrowserWindow, ipcMain, ipcRenderer } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const http = require("http");
 const path = require("path");
 const mysql = require("mysql");
@@ -16,15 +16,6 @@ const {
   userLeave,
   getRoomUsers,
 } = require("./js/utils//users");
-
-//--------------------------------------------------
-//Gantt-Chart with DHTMLX Node.js
-
-//--------------------------------------------------
-
-//Displays database content onto electron application front-end
-//const { dbDisplayToApp } = require("./renderer/dbDisplayToApp");
-//dbDisplayToApp();
 
 function createMain() {
   const loginWindow = new BrowserWindow({
@@ -194,7 +185,6 @@ app.whenReady().then(() => {
       if (error) {
         throw error;
       }
-
       event.reply("data", results);
     });
   });
@@ -206,7 +196,6 @@ app.whenReady().then(() => {
         if (error) {
           throw error;
         }
-
         event.reply("task", results);
       }
     );
@@ -230,22 +219,9 @@ app.whenReady().then(() => {
   });
 });
 
-app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") app.quit();
-});
-
-// Call the function to retrieve data from the database
-app.on("activate", function () {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createMain();
-    //createWindow();
-  }
-});
-
-//------------------------------------------------------------------------
-
-//----------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 //MySQL Database Connection
+//Do not delete Login will not function without connection
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -261,7 +237,7 @@ connection.connect((err) => {
   console.log("Connected to database successfully!");
 });
 
-/*DO NOT TOUCH VERY IMPORTANT FOR ELECTRON APP AND DATABASE INTERACTION */
+//------------------ipcMain------------------------------------------------------------
 ipcMain.on("message-from-renderer", (event, arg) => {
   console.log(`Received message from renderer process: ${arg}`);
   event.reply("message-from-main", "Hello from main process!");
@@ -269,10 +245,8 @@ ipcMain.on("message-from-renderer", (event, arg) => {
 
 ipcMain.on("register-user", (event, userData) => {
   const { firstName, lastName, username, email, password, role } = userData;
-
   const query = `INSERT INTO users (firstName, lastName, username, email, password, role) VALUES (?, ?, ?, ?, ?, ?)`;
   const values = [firstName, lastName, username, email, password, role];
-
   connection.query(query, values, (err, result) => {
     if (err) {
       console.log(`Error inserting user data into database: ${err}`);
@@ -284,13 +258,10 @@ ipcMain.on("register-user", (event, userData) => {
   });
 });
 
-//----------------------------------------------------------------------------
 ipcMain.on("login", (event, userData) => {
   const { username, password } = userData;
-
   const query = `SELECT * FROM users WHERE username = ? AND password = ?`;
   const values = [username, password];
-
   connection.query(query, values, (err, result, results) => {
     if (err) {
       console.log(`Error verifying user data in database: ${err}`);
@@ -321,7 +292,6 @@ ipcMain.on("login", (event, userData) => {
             error: "Invalid credentials",
           });
         }
-
         // create a JWT token
         const token = jwt.sign(
           { id: user.id, username: user.username, role: user.role },
@@ -329,7 +299,6 @@ ipcMain.on("login", (event, userData) => {
         );
         event.sender.send("login-success", { token });
       });
-
       event.reply("login-response", userData);
       console.log(`User verified successfully: ${result}`);
       event.reply("login-success", result);
@@ -337,69 +306,24 @@ ipcMain.on("login", (event, userData) => {
   });
 });
 
-/*
-// login event
-ipcMain.on("login", (event, args) => {
-  const { username, password } = args;
-
-  // query the MySQL database for the user with the given username/email
-  connection.query(
-    "SELECT * FROM users WHERE username = ? OR email = ?",
-    [username, username],
-    (error, results, fields) => {
-      if (error) {
-        return event.sender.send("login-error", { error: "Internal server error" });
-      }
-
-      // check if user exists
-      if (results.length === 0) {
-        return event.sender.send("login-error", { error: "Invalid credentials" });
-      }
-
-      // verify the password hash
-      const user = results[0];
-      bcrypt.compare(password, user.password_hash, (err, match) => {
-        if (err || !match) {
-          return event.sender.send("login-error", { error: "Invalid credentials" });
-        }
-
-        // create a JWT token
-        const token = jwt.sign(
-          { id: user.id, username: user.username, role: user.role },
-          "your_secret_key"
-        );
-
-        // store the JWT in a cookie or local storage
-        // ...
-
-        // send the token to the renderer process
-        event.sender.send("login-success", { token });
-      });
-    }
-  );
-});
-*/
-
-ipcMain.on("protected", (event, args) => {
-  const token = args;
-
-  // validate the JWT
-  jwt.verify(token, "your_secret_key", (err, decoded) => {
-    if (err) {
-      return event.sender.send("protected-error", { error: "Invalid token" });
-    }
-
-    // do something with the decoded user ID and role
-    // ...
-
-    event.sender.send("protected-success", { message: "Access granted" });
-  });
-});
-/*---------------------------------------------------------------------- */
-
 ipcMain.on("display-text", (event, text) => {
   mainWindow.webContents.send("display-text", text);
 });
+//------------------ipcMain------------------------------------------------------------
+
+//-------------Electron App----------------------
+app.on("window-all-closed", function () {
+  if (process.platform !== "darwin") app.quit();
+});
+
+// Call the function to retrieve data from the database
+app.on("activate", function () {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createMain();
+    //createWindow();
+  }
+});
+//-----------------------------------------------
 
 /*Chat Room front-end javascript commands do not delete */
 //const express = require("express");
@@ -463,17 +387,3 @@ io.on("connection", (socket) => {
 const PORT = 3000 || process.env.PORT;
 
 server.listen(PORT, () => console.log(`Server running on ${PORT}`));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
