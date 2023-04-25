@@ -1,10 +1,19 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
 const express = require("express");
+const http = require("http");
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const mysql = require("mysql");
 const bcrypt = require("bcrypt");
 const isDev = process.env.NODE_ENV !== "production";
+const socketio = require("socket.io");
+const formatMessage = require("./js/utils/messages");
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers,
+} = require("./js/utils//users");
 
 //Node.JS Server Code
 //Node.js server is set up using Express to handle requests from the Electron application.
@@ -49,11 +58,18 @@ ipcMain.on("login", (event, userData) => {
     if (result.length === 0) {
       console.log(`User not found or invalid credentials`);
       event.reply("login-failure", "User not found or invalid credentials");
-    } 
-    
-      event.reply("login-response", userData);
-      console.log(`User verified successfully: ${result}`);
-      
+    }
+    // Generate a JWT for the authenticated user with their role
+    const token = jwt.sign(
+      {
+        id: result[0].id,
+        username: result[0].username,
+        role: result[0].role,
+      },
+      "mysecretkey"
+    );
+    event.reply("login-response", { token });
+    console.log(`User verified successfully: ${result}`);
   });
 });
 
@@ -119,7 +135,63 @@ ipcMain.on("display-text", (event, text) => {
   mainWindow.webContents.send("display-text", text);
 });
 
+/*Chat Room front-end javascript commands do not delete */
+//const express = require("express");
 
+const server = http.createServer(expServer);
+const io = socketio(server);
+
+//Set static folder
+expServer.use(express.static(path.join(__dirname, "public")));
+
+const botName = "Quinones Bot";
+
+//run when client connects
+io.on("connection", (socket) => {
+  socket.on("joinRoom", ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+    socket.join(user.room);
+
+    //Welcome current user
+    socket.emit("message", formatMessage(botName, "Welcome to Quinones Chat"));
+
+    //Broadcast when a user connects
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        "message",
+        formatMessage(botName, `${user.username} has joined the chat`)
+      );
+
+    //Send users and room info
+    io.to(user.room).emit("roomUsers", {
+      room: user.room,
+      users: getRoomUsers(user.room),
+    });
+  });
+
+  //Listen for chatMessage
+  socket.on("chatMessage", (msg) => {
+    const user = getCurrentUser(socket.id);
+    io.to(user.room).emit("message", formatMessage(user.username, msg));
+  });
+
+  //Runs when client disconnects
+  socket.on("disconnect", () => {
+    const user = userLeave(socket.id);
+    if (user) {
+      io.to(user.room).emit(
+        "message",
+        formatMessage(botName, `${user.username} has left the chat`)
+      );
+      //Send users and room info
+      io.to(user.room).emit("roomUsers", {
+        room: user.room,
+        users: getRoomUsers(user.room),
+      });
+    }
+  });
+});
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -129,7 +201,7 @@ function createWindow() {
       height: 60,
     },
     title: "Quinones",
-    width: isDev ? 2000 : 500,
+    width: 2000,
     height: 1000,
     webPreferences: {
       nodeIntegration: true,
@@ -138,7 +210,6 @@ function createWindow() {
   });
 
   mainWindow.loadURL("http://localhost:5000");
-
 
   mainWindow.on("closed", function () {
     mainWindow = null;

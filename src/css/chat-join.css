@@ -494,9 +494,9 @@ a {
 
 /* Join Page */
 .join-container {
+	max-width: 500px;
 	margin: 80px auto;
 	color: #fff;
-    width: 90%;
 }
 
 .join-header {

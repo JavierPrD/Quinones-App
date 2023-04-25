@@ -13,7 +13,7 @@
     <link href="../components/common/sidebar/sidebar.css" rel="stylesheet">
     <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
     <link href="../css/profile.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://localhost:5000/css">
+    
 
 
 
@@ -68,7 +68,7 @@
 
                         </div>
 
-                        <a href="UserProfile_view.html">
+                        <a href="/profile">
                             <div class="header-icon">
                                 <i class="bi bi-person-circle"></i>
                             </div>
@@ -84,36 +84,26 @@
                     <div class="sidebar">
                         <div class="sidebar-top">
                             <div class="sidebar-option">
-                                <a href="Home_view.html">
+                                <!--<a href="Home_view.html">-->
+                                <a href="/home">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-house"></i>
                                     </div>
                                 </a>
                                 <label class="sidebar-label">Home</label>
                             </div>
-                            <!--
                             <div class="sidebar-option">
-                                <a href="Groups_view.html">
-                                    <div class="sidebar-icon">
-                                        <i class="bi bi-people-fill"></i>
-                                    </div>
-                                </a>
-                                <label class="sidebar-label">Groups</label>
-
-                            </div>
-                            -->
-
-                            <div class="sidebar-option">
-                                <a href="Requests_view.html">
+                                <!--<a href="Requests_view.html">-->
+                                <a href="/requests">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-people-fill"></i>
                                     </div>
                                 </a>
                                 <label class="sidebar-label">Requests</label>
                             </div>
-
                             <div class="sidebar-option">
-                                <a href="Chat_view.html">
+                                <!--<a href="Chat_view.html">-->
+                                    <a href="/chat">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-chat-dots"></i>
                                     </div>
@@ -122,7 +112,8 @@
                             </div>
 
                             <div class="sidebar-option">
-                                <a href="Task_view.html">
+                                <!--<a href="Task_view.html">-->
+                                    <a href="/task">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-file-text"></i>
                                     </div>
@@ -131,7 +122,8 @@
                             </div>
 
                             <div class="sidebar-option">
-                                <a href="Gantt-Chart_view.html">
+                                <!--<a href="Gantt-Chart_view.html">-->
+                                    <a href="/gantt">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-bar-chart-steps"></i>
                                     </div>
@@ -140,7 +132,8 @@
                             </div>
 
                             <div class="sidebar-option">
-                                <a href="Calender_view.html">
+                                <!--<a href="Calender_view.html">-->
+                                    <a href="/calendar">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-calendar"></i>
                                     </div>
@@ -149,7 +142,8 @@
                             </div>
 
                             <div class="sidebar-option">
-                                <a href="call-view.html">
+                                <!--<a href="call-view.html">-->
+                                    <a href="/call">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-telephone"></i>
                                     </div>
@@ -158,7 +152,8 @@
                             </div>
 
                             <div class="sidebar-option">
-                                <a href="Files_view.html">
+                                <!--<a href="Files_view.html">-->
+                                    <a href="/files">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-folder"></i>
                                     </div>
@@ -166,25 +161,19 @@
                                 <label class="sidebar-label">Files</label>
                             </div>
 
-                            <div>
-                                <div class="sidebar-option">
+                        </div>
+
+                        <div class="sidebar-bottom">
+                            <div class="sidebar-option">
+                                <!--<a href="Help_view.html">-->
+                                    <a href="/help">
                                     <div class="sidebar-icon">
-                                        <i class="bi bi-three-dots"></i>
+                                        <i class="bi bi-question-circle"></i>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="sidebar-bottom">
-                                <div class="sidebar-option">
-                                    <a href="Help_view.html">
-                                        <div class="sidebar-icon">
-                                            <i class="bi bi-question-circle"></i>
-                                        </div>
-                                    </a>
-                                    <label class="sidebar-label">Help</label>
-                                </div>
+                                </a>
+                                <label class="sidebar-label">Help</label>
                             </div>
                         </div>
-                        <!---------------------------------------------------------------------------------------------->
                     </div>
 
                 </div>
@@ -199,6 +188,10 @@
                         </div>
                         <div class="content-container">
                             <div class="profile tabShow">
+                                <div id="user-info">
+                                    <h2>Welcome ${decodedToken.username}!</h2>
+                                </div>
+                                
                                 <h1>Personal Info</h1>
                                 
                                 <h2>First Name</h2> <input type="text" class="input" id="FirstName" value="">
@@ -232,22 +225,7 @@
                 </div><!-----End of Right Fold -->
             </div><!-----End of Body---->
         </div><!-----End of Container---->
-        <table id="user">
-            <thead>
-                <tr>
-                    <th>Column 1</th>
-                    <th>Column 2</th>
-                    <th>Column 3</th>
-                    <th>Column 4</th>
-                    <th>Column 5</th>
-                    <th>Column 6</th>
-                    <th>Column 7</th>
-                    <!-- Add more columns as needed -->
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        
 
 
         <script>
@@ -271,6 +249,8 @@
 
         </script>
         <script src="../renderer/userprofile.js"></script>
+
+        
 
 
 </body>

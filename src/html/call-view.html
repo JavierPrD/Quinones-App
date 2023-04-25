@@ -37,7 +37,7 @@
     <link href="../components/calls/right-fold/contact-card.css" rel="stylesheet">
     <link href="../components/calls/right-fold/right-fold.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="http://localhost:5000/css">
+    
 </head>
 
 <body style="display: block; margin: auto;">
@@ -86,7 +86,7 @@
                                 </div>
                             </i>
                         </div>
-                        <a href="UserProfile_view.html">
+                        <a href="/profile">
                             <div class="header-icon">
                                 <i class="bi bi-person-circle"></i>
                             </div>
@@ -359,18 +359,7 @@
             </div>
         </div>
     </div>
-    <script>
-        const tabBtn = document.querySelectorAll(".tab")
-        const tab = document.querySelectorAll(".tabShow")
-
-        function tabs(panelIndex) {
-            tab.forEach(function (node) {
-                node.style.display = "none";
-            });
-            tab[panelIndex].style.display = "block";
-        }
-        tabs(0);
-    </script>
+    
 
     <script>
         let subMenu = document.getElementById("subMenu");
@@ -379,7 +368,7 @@
         }
 
     </script>
-    <script src="../renderer.js"></script>
+   
 </body>
 
 </html>
