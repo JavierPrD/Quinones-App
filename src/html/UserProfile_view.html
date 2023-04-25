@@ -13,7 +13,7 @@
     <link href="../components/common/sidebar/sidebar.css" rel="stylesheet">
     <link href="../components/common/sidebar/sidebar-option.css" rel="stylesheet">
     <link href="../css/profile.css" rel="stylesheet">
-    
+
 
 
 
@@ -103,7 +103,7 @@
                             </div>
                             <div class="sidebar-option">
                                 <!--<a href="Chat_view.html">-->
-                                    <a href="/chat">
+                                <a href="/chat">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-chat-dots"></i>
                                     </div>
@@ -113,7 +113,7 @@
 
                             <div class="sidebar-option">
                                 <!--<a href="Task_view.html">-->
-                                    <a href="/task">
+                                <a href="/task">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-file-text"></i>
                                     </div>
@@ -123,7 +123,7 @@
 
                             <div class="sidebar-option">
                                 <!--<a href="Gantt-Chart_view.html">-->
-                                    <a href="/gantt">
+                                <a href="/gantt">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-bar-chart-steps"></i>
                                     </div>
@@ -133,7 +133,7 @@
 
                             <div class="sidebar-option">
                                 <!--<a href="Calender_view.html">-->
-                                    <a href="/calendar">
+                                <a href="/calendar">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-calendar"></i>
                                     </div>
@@ -143,7 +143,7 @@
 
                             <div class="sidebar-option">
                                 <!--<a href="call-view.html">-->
-                                    <a href="/call">
+                                <a href="/call">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-telephone"></i>
                                     </div>
@@ -153,7 +153,7 @@
 
                             <div class="sidebar-option">
                                 <!--<a href="Files_view.html">-->
-                                    <a href="/files">
+                                <a href="/files">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-folder"></i>
                                     </div>
@@ -166,7 +166,7 @@
                         <div class="sidebar-bottom">
                             <div class="sidebar-option">
                                 <!--<a href="Help_view.html">-->
-                                    <a href="/help">
+                                <a href="/help">
                                     <div class="sidebar-icon">
                                         <i class="bi bi-question-circle"></i>
                                     </div>
@@ -188,18 +188,38 @@
                         </div>
                         <div class="content-container">
                             <div class="profile tabShow">
-                               
                                 <h1>Personal Info</h1>
-                                
-                                <h2>First Name</h2> <input type="text" class="input" id="FirstName" value="">
-                                <h2>Last Name</h2> <input type="text" class="input" id="LastName" value="">
-                                <h2>Username</h2> <input type="text" class="input" id="username" value="">
-                                <h2>Password</h2> <input type="password" class="input" id="password" value="">
-                                <h2>Email</h2> <input type="text" class="input" id="email" value="">
-                                <h2>Role</h2> <input type="text" class="input" id="role" value="">
+                                <div class="user-profile-data">
+                                    <div class="profile-section">
+                                        <h2>First Name: </h2>
+                                        <span class="label" id="FirstName"></span>
+                                    </div>
+                                    <div class="profile-section">
+                                        <h2>Last Name: </h2>
+                                        <span class="label" id="LastName"></span>
+                                    </div>
+                                    <div class="profile-section">
+                                        <h2>Username: </h2>
+                                        <span class="label" id="username"></span>
+                                    </div>
+                                    <div class="profile-section">
+                                        <h2>Password:</h2>
+                                       
+                                        <span class="label" id="password"></span>
+                                    </div>
+                                    <div class="profile-section">
+                                        <h2>Email: </h2>
+                                        
+                                        <span class="label" id="email"></span>
+                                    </div>
+                                    <div class="profile-section">
+                                        <h2>Role: </h2>
+                                        
+                                        <span class="label" id="role"></span>
+                                    </div>
+                                </div>
 
-                                <button class="btn">Update</button>
-                                
+
                             </div>
                             <div class="project tabShow">
                                 <h1>Project Info</h1>
@@ -219,10 +239,11 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div><!-----End of Right Fold -->
             </div><!-----End of Body---->
         </div><!-----End of Container---->
-        
+
 
 
         <script>
@@ -246,9 +267,9 @@
 
         </script>
         <script src="../renderer/userprofile.js"></script>
-        
 
-        
+
+
 
 
 </body>

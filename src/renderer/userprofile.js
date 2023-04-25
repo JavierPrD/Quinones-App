@@ -1,39 +1,29 @@
+const jwt = require('jsonwebtoken');
 const { ipcRenderer } = require('electron');
 
 // Get the user's JWT token from local storage
 const token = localStorage.getItem('token');
 
-// Send a request to the main process to get the user's information from the database
-ipcRenderer.send('get-user-info', token);
+// Decode the token to get the user ID
+const decodedToken = jwt.decode(token);
+const userId = decodedToken.userId;
 
-// Listen for the response from the main process
-ipcRenderer.on('user-info', (event, userInfo) => {
-  // Get elements from the HTML
-  const firstName = document.querySelector('#first-name');
-  const lastName = document.querySelector('#last-name');
-  const username = document.querySelector('#username');
-  const password = document.querySelector('#password');
-  const email = document.querySelector('#email');
-  const role = document.querySelector('#role');
+// Send a request to the server to fetch the user profile data
+ipcRenderer.send('get-user-info', { userId, token });
 
-  // Populate the elements with the user's information
-  firstName.innerText = userInfo.FirstName;
-  lastName.innerText = userInfo.LastName;
-  username.innerText = userInfo.username;
-  password.innerText = userInfo.password;
-  email.innerText = userInfo.email;
-  role.innerText = userInfo.role;
-
-  const userProfileDiv = document.querySelector('#user-profile');
-  userProfileDiv.innerHTML = `
-    <h2>Welcome ${user.FirstName} ${user.LastName}!</h2>
-    <p>Email: ${user.Email}</p>
-    <p>Role: ${user.Role}</p>
-  `;
+// Listen for the response from the server
+ipcRenderer.on('user-profile-data', (event, userData) => {
+  // Update the HTML elements with the user profile data
+  document.querySelector('#FirstName').textContent = userData.FirstName;
+  document.querySelector('#LastName').textContent = userData.LastName;
   
 });
 
 ipcRenderer.on('get-user-info-error', (event, message) => {
   // Display an error message if there was a problem getting the user's information
+  alert(message);
+});
+
+ipcRenderer.on('get-user-info-success', (event, message) => {
   alert(message);
 });

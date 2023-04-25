@@ -63,7 +63,10 @@ ipcMain.on("login", (event, userData) => {
     const token = jwt.sign(
       {
         id: result[0].id,
+        FirstName: result[0].FirstName,
+        LastName: result[0].LastName,
         username: result[0].username,
+        email: result[0].email,
         role: result[0].role,
       },
       "mysecretkey"
@@ -104,6 +107,32 @@ ipcMain.on("getData", (event) => {
     event.sender.send("getData", results);
   });
 });
+
+ipcMain.on('get-user-info', (event, { userId, token }) => {
+  // Verify the JWT token
+  jwt.verify(token, 'mysecretkey', (error, decodedToken) => {
+    if (error) {
+      event.reply('get-user-info-error', 'Invalid token');
+    } else if (decodedToken.id !== userId) {
+      event.reply('get-user-info-error', 'Token does not match user ID');
+    } else {
+      //event.reply('get-user-info-success', 'Token matches user ID');
+      // Fetch the user data from the database
+      connection.query('SELECT * FROM users WHERE id = ?', [userId], (error, results) => {
+        if (error) {
+          event.reply('get-user-info-error', error.message);
+        } else {
+          // Send the user information back to the renderer process
+          event.reply('user-profile-data', results);
+        }
+      });
+    }
+  });
+});
+
+
+
+
 
 // Listen for the saveDataToLocalStorage event from the renderer process
 ipcMain.on("saveDataToLocalStorage", (event, data) => {
