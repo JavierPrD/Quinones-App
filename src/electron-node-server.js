@@ -6,7 +6,10 @@ const jwt = require("jsonwebtoken");
 const mysql = require("mysql");
 const bcrypt = require("bcrypt");
 const isDev = process.env.NODE_ENV !== "production";
-const socketio = require("socket.io");
+
+const io = require('socket.io-client');
+const socket = io('http://localhost:5000');
+
 const formatMessage = require("./js/utils/messages");
 const {
   userJoin,
@@ -165,62 +168,9 @@ ipcMain.on("display-text", (event, text) => {
 });
 
 /*Chat Room front-end javascript commands do not delete */
-//const express = require("express");
 
-const server = http.createServer(expServer);
-const io = socketio(server);
 
-//Set static folder
-expServer.use(express.static(path.join(__dirname, "public")));
-
-const botName = "Quinones Bot";
-
-//run when client connects
-io.on("connection", (socket) => {
-  socket.on("joinRoom", ({ username, room }) => {
-    const user = userJoin(socket.id, username, room);
-    socket.join(user.room);
-
-    //Welcome current user
-    socket.emit("message", formatMessage(botName, "Welcome to Quinones Chat"));
-
-    //Broadcast when a user connects
-    socket.broadcast
-      .to(user.room)
-      .emit(
-        "message",
-        formatMessage(botName, `${user.username} has joined the chat`)
-      );
-
-    //Send users and room info
-    io.to(user.room).emit("roomUsers", {
-      room: user.room,
-      users: getRoomUsers(user.room),
-    });
-  });
-
-  //Listen for chatMessage
-  socket.on("chatMessage", (msg) => {
-    const user = getCurrentUser(socket.id);
-    io.to(user.room).emit("message", formatMessage(user.username, msg));
-  });
-
-  //Runs when client disconnects
-  socket.on("disconnect", () => {
-    const user = userLeave(socket.id);
-    if (user) {
-      io.to(user.room).emit(
-        "message",
-        formatMessage(botName, `${user.username} has left the chat`)
-      );
-      //Send users and room info
-      io.to(user.room).emit("roomUsers", {
-        room: user.room,
-        users: getRoomUsers(user.room),
-      });
-    }
-  });
-});
+//------------------------------------------------
 
 function createWindow() {
   mainWindow = new BrowserWindow({
