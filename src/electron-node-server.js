@@ -4,11 +4,9 @@ const http = require("http");
 const path = require("path");
 const jwt = require("jsonwebtoken");
 const mysql = require("mysql");
+const socketio = require("socket.io");
 const bcrypt = require("bcrypt");
 const isDev = process.env.NODE_ENV !== "production";
-
-const io = require('socket.io-client');
-const socket = io('http://localhost:5000');
 
 const formatMessage = require("./js/utils/messages");
 const {
@@ -42,9 +40,9 @@ console.log(__dirname);
 //Define Routes
 expServer.use("/", require("./routes/pages"));
 
-expServer.listen(5000, () => {
-  console.log("Server started on Port 5000");
-});
+//expServer.listen(5000, () => {
+//  console.log("Server started on Port 5000");
+//});
 
 ipcMain.on("login", (event, userData) => {
   // Send login credentials to server
@@ -111,31 +109,31 @@ ipcMain.on("getData", (event) => {
   });
 });
 
-ipcMain.on('get-user-info', (event, { userId, token }) => {
+ipcMain.on("get-user-info", (event, { userId, token }) => {
   // Verify the JWT token
-  jwt.verify(token, 'mysecretkey', (error, decodedToken) => {
+  jwt.verify(token, "mysecretkey", (error, decodedToken) => {
     if (error) {
-      event.reply('get-user-info-error', 'Invalid token');
+      event.reply("get-user-info-error", "Invalid token");
     } else if (decodedToken.id !== userId) {
-      event.reply('get-user-info-error', 'Token does not match user ID');
+      event.reply("get-user-info-error", "Token does not match user ID");
     } else {
       //event.reply('get-user-info-success', 'Token matches user ID');
       // Fetch the user data from the database
-      connection.query('SELECT * FROM users WHERE id = ?', [userId], (error, results) => {
-        if (error) {
-          event.reply('get-user-info-error', error.message);
-        } else {
-          // Send the user information back to the renderer process
-          event.reply('user-profile-data', results);
+      connection.query(
+        "SELECT * FROM users WHERE id = ?",
+        [userId],
+        (error, results) => {
+          if (error) {
+            event.reply("get-user-info-error", error.message);
+          } else {
+            // Send the user information back to the renderer process
+            event.reply("user-profile-data", results);
+          }
         }
-      });
+      );
     }
   });
 });
-
-
-
-
 
 // Listen for the saveDataToLocalStorage event from the renderer process
 ipcMain.on("saveDataToLocalStorage", (event, data) => {
@@ -169,8 +167,107 @@ ipcMain.on("display-text", (event, text) => {
 
 /*Chat Room front-end javascript commands do not delete */
 
+// Create a new HTTP server instance using the Express app
+const httpServer = http.createServer(expServer);
+// Create a new Socket.io instance using the HTTP server
+const io = socketio(httpServer);
 
 //------------------------------------------------
+
+
+
+function createServer() {
+  const httpServer = http.createServer(expServer);
+  const io = socketio(httpServer);
+
+  io.on("connection", (socket) => {
+    console.log("New user connected");
+
+    // Listen for the 'login' event and add the user to the General room
+    socket.on("login", (username) => {
+      socket.join("General");
+      io.to("General").emit("message", {
+        username: "ChatBot",
+        text: `${username} has joined the chat`,
+        time: new Date().toLocaleTimeString(),
+      });
+
+      io.to("General").emit("roomUsers", {
+        room: "General",
+        users: getUsersInRoom("General"),
+      });
+    });
+
+    // Listen for the 'chatMessage' event and broadcast the message to the room
+    socket.on("chatMessage", (message) => {
+      const user = getUser(socket.id);
+      io.to(user.room).emit("message", {
+        username: user.username,
+        text: message,
+        time: new Date().toLocaleTimeString(),
+      });
+    });
+
+    // Listen for the 'disconnect' event and remove the user from the room
+    socket.on("disconnect", () => {
+      const user = removeUser(socket.id);
+
+      if (user) {
+        io.to(user.room).emit("message", {
+          username: "ChatBot",
+          text: `${user.username} has left the chat`,
+          time: new Date().toLocaleTimeString(),
+        });
+
+        io.to(user.room).emit("roomUsers", {
+          room: user.room,
+          users: getUsersInRoom(user.room),
+        });
+      }
+    });
+  });
+
+  httpServer.listen(5000, () => {
+    console.log("Server started on port 5000");
+  });
+}
+
+// Helper functions for managing users in the chat rooms
+const users = [];
+
+function addUser(id, username, room) {
+  const existingUser = users.find(
+    (user) => user.room === room && user.username === username
+  );
+
+  if (existingUser) {
+    return { error: "Username is already taken" };
+  }
+
+  const user = { id, username, room };
+  users.push(user);
+
+  return { user };
+}
+
+function removeUser(id) {
+  const index = users.findIndex((user) => user.id === id);
+
+  if (index !== -1) {
+    return users.splice(index, 1)[0];
+  }
+}
+
+function getUser(id) {
+  return users.find((user) => user.id === id);
+}
+
+function getUsersInRoom(room) {
+  return users.filter((user) => user.room === room);
+}
+
+
+
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -187,8 +284,9 @@ function createWindow() {
       contextIsolation: false, // Required for IPC
     },
   });
-
+  createServer()
   mainWindow.loadURL("http://localhost:5000");
+ 
 
   mainWindow.on("closed", function () {
     mainWindow = null;
@@ -197,4 +295,5 @@ function createWindow() {
 
 app.on("ready", function () {
   createWindow();
+  
 });
