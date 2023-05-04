@@ -165,6 +165,14 @@ ipcMain.on("display-text", (event, text) => {
   mainWindow.webContents.send("display-text", text);
 });
 
+
+
+
+
+
+
+
+
 /*Chat Room front-end javascript commands do not delete */
 
 // Create a new HTTP server instance using the Express app

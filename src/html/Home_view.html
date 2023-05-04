@@ -41,7 +41,49 @@
                     </div>
                     <div class="header-profile">
                         <div class="header-notify">
-                            <i class="bi bi-bell"></i>
+                            <i class="bi bi-bell" onclick="toggleNotify()">
+                                <div class="sub-notify-wrap" id="subNotify">
+                                    <div class="sub-notify">
+                                        <div class="sub-notify-title">
+                                            Notification
+                                            <button onclick="clearAll()">Clear All</button>
+                                        </div>
+                                        
+                                        <div class="sub-notify-message">
+                                            <p>### has been assigned a new task</p>
+                                            <i class="bi bi-x-circle" onclick="dismissMessage()"></i>
+                                        </div>
+                                        
+                                        <div class="sub-notify-message">
+                                            <p>### is online</p>
+                                            <i class="bi bi-x-circle" onclick="dismissMessage()"></i>
+                                        </div>
+                                        <div class="sub-notify-message">
+                                            <p>### is due Today at 8:00pm</p>
+                                            <i class="bi bi-x-circle" onclick="dismissMessage()"></i>
+                                        </div>
+                                        <div class="sub-notify-message">
+                                            <p>New User has been added.</p>
+                                            <i class="bi bi-x-circle" onclick="dismissMessage()"></i>
+                                        </div>
+                                        <div class="sub-notify-message">
+                                            <p>### has been deleted/removed from Project</p>
+                                            <i class="bi bi-x-circle" onclick="dismissMessage()"></i>
+                                        </div>
+                                        <div class="sub-notify-message">
+                                            <p>Gantt-Chart,Task-List,and Calender have been updated.</p>
+                                            <i class="bi bi-x-circle" onclick="dismissMessage()"></i>
+                                        </div>
+                                        <div class="sub-notify-message">
+                                            <p>### has sent you a message.</p>
+                                            <i class="bi bi-x-circle" onclick="dismissMessage()"></i>
+                                        </div>
+                                    
+
+                                    </div>
+                                </div>
+                            </i>
+                            <span class="badge" id="notificationBadge">0</span>
                         </div>
                         <div class="header-options">
                             <i class="bi bi-three-dots" onclick="toggleMenu()">
@@ -340,9 +382,14 @@
 
     <script>
         let subMenu = document.getElementById("subMenu");
+        let subNotify = document.getElementById("subNotify");
         function toggleMenu() {
             subMenu.classList.toggle("open-menu");
         }
+        function toggleNotify(){
+            subNotify.classList.toggle("open-notify")
+        }
+
 
     </script>
     <script src="../renderer/roster.js"></script>
