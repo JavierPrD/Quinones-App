@@ -66,8 +66,19 @@
     
 }
 
+.header-notify{
+    font-size: 20px;
+    margin-right: 16px;
+    cursor: pointer;
+}
+
 .header-avatar{
     height: 32px;
+    cursor: pointer;
+}
+
+.header-icon{
+    font-size: 20px;
     cursor: pointer;
 }
 

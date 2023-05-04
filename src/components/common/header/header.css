@@ -71,6 +71,14 @@
     cursor: pointer;
 }
 
+
+.header-notify{
+    font-size: 20px;
+    margin-right: 16px;
+    cursor: pointer;
+}
+
+
 .header-options{
     font-size: 20px;
     margin-right: 16px;
